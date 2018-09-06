@@ -10,49 +10,109 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Registration_page</title>
-     <style type="text/css">
-     .heading {color:black; background:lawngreen; text-align:center; font-size:x-large;font-family:Impact}
-     .text_area {color:lawngreen; text-align:center; font-family:Calibri;font-size:14px}
-     .button_area{font-size:large;text-align: center}
-     .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:x-large; text-align:center;}
-     .button:hover{transform:scale(1.1)}
-     
-     </style>
 </head>
 <body style="background-color:black">
-@using (Html.BeginForm())
-{
-    <div class="heading">
-        <h1>VERSIYA</h1>
-    </div> 
-    <div class="text_area">
-        
-            <label for="username">USERNAME:  </label>
-            <h6> </h6>
-            @Html.TextBoxFor(mod => mod.username)
-            <h1> </h1>
-            <label for="password">PASSWORD:  </label>
-            <h6> </h6>
-            @Html.PasswordFor(mod => mod.password)
-            @Html.ValidationMessageFor(mod => mod.password)
-            <h1> </h1>
-            <label for="e_mail">E-MAIL ADDRESS:  </label>
-            <h6> </h6>
-            @Html.TextBoxFor(mod => mod.email)
-            <h1> </h1>
-            <label for="ID">ID NUMBER:</label>
-            <h6> </h6>
-            @Html.TextBoxFor(mod => mod.user_id)
-        </div>
-        <div class="button_area">
-            <h1>--------------------------------</h1>
-            <button id ="submitbtn"class="button" type="submit"> REGISTER </button>
-            <button class="button"> BACK</button>
-           
-            
-      </div>
-}
+        <style type="text/css">
+    .form-horizontal {color:lawngreen; background:black; text-align:center; font-size:40px;font-family:Impact}
+    .form-group {color:lawngreen; text-align:center; font-family:Calibri;font-size:large}
+    .col-md-10{color:white; text-align:center; font-family:Calibri;font-size:small}
+    .button{color:black; background-color:lawngreen; width:130px; text-align:center; font-family:Impact;font-size:x-large}
+    .button:hover{transform:scale(1.1)}
+    .link{font-family:Calibri;text-align:left}
+    .space{color:black;font-size:x-small}
+    .label{background-color:lawngreen;color:black;font-family:Impact;font-size:40px}
+  
+   
+  
 
+    </style>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <div class="label">
+            <h2>VERSIYA</h2>
+        </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <h1></h1>
+                @Html.LabelFor(model => model.User_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.User_id, new { htmlAttributes = new { @class = "form-control" } })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.User_id, "", new { @class = "text-danger" })
+                    </div> 
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <h1></h1>
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <h1></h1>
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <h1></h1>
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <h1></h1>
+                @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    <div>
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div>
+                    <div class="space">
+                        <h1>-----------------------------</h1>
+                    </div>
+                    
+                    <input class="button" type="submit" value="REGISTER" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="link">
+        <h1></h1>
+        <h1></h1>
+        @Html.ActionLink("Back to login page", "Index", null, new { @Style = "color:lawngreen" })
+       
+    </div>
 </body>
 </html>
-

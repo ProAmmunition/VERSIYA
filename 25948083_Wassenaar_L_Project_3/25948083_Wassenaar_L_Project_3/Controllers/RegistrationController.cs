@@ -28,10 +28,10 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                  {
                     sql_com.Connection = sql_con;
                     sql_con.Open();
-                    sql_com.Parameters.AddWithValue("@user_id", user_model.user_id);
-                    sql_com.Parameters.AddWithValue("@username", user_model.username);
-                    sql_com.Parameters.AddWithValue("@user_password", user_model.password);
-                    sql_com.Parameters.AddWithValue("@user_email_address", user_model.email);
+                    sql_com.Parameters.AddWithValue("@user_id", user_model.User_id);
+                    sql_com.Parameters.AddWithValue("@username", user_model.Username);
+                    sql_com.Parameters.AddWithValue("@user_password", user_model.Password);
+                    sql_com.Parameters.AddWithValue("@user_email_address", user_model.Email);
                     sql_com.ExecuteNonQuery();
                     sql_con.Close();
                 }
