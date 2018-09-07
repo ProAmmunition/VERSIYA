@@ -1,4 +1,5 @@
-﻿
+﻿@model _25948083_Wassenaar_L_Project_3.Models.LoginModel
+
 @{
     Layout = null;
 }
@@ -7,51 +8,49 @@
 
 <html>
 <head>
-    <meta name="Login" content="width=device-width" />
-    <title>Index</title>
-    <style type="text/css">
-    .heading {color:black; background:lawngreen; text-align:center; font-size:xx-large;font-family:Impact}
-    .text_area {color:lawngreen; text-align:center; font-family:Calibri;font-size:large}
-    .button_area{font-size:large;text-align: center}
-    .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:x-large; text-align:center;}
-    .button:hover{transform:scale(1.1)}
-    .label{color:white; font-family:Impact; font-size:large}
-    .detail{color:white;font-family:square 'MS Reference Sans Serif';font-size:large;position:fixed; bottom:0; left:0; text-align:center; width:100%}
-
-    </style>
-
+    <meta name="viewport" content="width=device-width" />
+    <title>VERSIYA</title>
 </head>
-<body style="background-color:black">
-    <div class="heading">
-        <h1>VERSIYA</h1>
-    </div> 
-     <div class="text_area">
-        <label for="username">USERNAME : </label>
-        <input id="username" type="text" autofocus />
-         <h6> </h6>
-        <label for="password">PASSWORD : </label>
-        <input id="password" type="password" />
-    </div>
-    <div class="button_area">
-        <h1> </h1>
-        <h1> </h1>
-        <h1> </h1>
-        <button class="button"> LOGIN</button>
+<body>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>LoginModel</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
         </div>
-       <div class="button_area">
-           <h4> ------------------------------------</h4>
-          <label class="label">New? Create an account</label>
-           <h1> </h1>
-           <h1> </h1>
-           <h1> </h1>
-           <h1> </h1>
-       <button class="button"> CREATE ACCOUNT</button>  
-       </div>
-       
-        <div class="detail">
-            <p>Contact Details:</p>
-            <p>Cell: 0781016485 </p>
-            <p>E-mail address: wassenleonard@gmail.com </p>
-         </div>     
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </body>
 </html>
