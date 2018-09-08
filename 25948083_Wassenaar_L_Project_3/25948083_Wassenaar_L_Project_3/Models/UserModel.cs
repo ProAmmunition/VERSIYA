@@ -17,7 +17,7 @@ namespace _25948083_Wassenaar_L_Project_3.Models
 
         [Display(Name = "USERNAME")]
         [Required(ErrorMessage = "Username is required")]
-        [StringLength(25, ErrorMessage = "Must be between 5 and 25 characters", MinimumLength = 5)]
+        [StringLength(25, ErrorMessage = "Must be between 3 and 25 characters", MinimumLength = 3)]
         public string Username { get; set; }
 
         [Display(Name = "E-MAIL ADDRESS")]

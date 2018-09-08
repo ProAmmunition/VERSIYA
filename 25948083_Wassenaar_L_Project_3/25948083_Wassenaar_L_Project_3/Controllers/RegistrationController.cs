@@ -38,13 +38,17 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         sql_com.Parameters.AddWithValue("@user_password", user_model.hash(user_model.Password));
                         sql_com.Parameters.AddWithValue("@user_email_address", user_model.Email);
                         sql_com.ExecuteNonQuery();
+                        ViewData["Message"] = "User was successfully registered";
                         sql_con.Close();
                         return View(user_model);
                     }
                     catch (MySqlException e)
                     {
-                        return RedirectToAction("Error_Found", "Error", new { area = "" });
+                       
+                            ViewData["Message"] = "Error, please make sure the ID, username and Email entries is unique";
+                        
                     }
+                    return View();
                 }
 
 

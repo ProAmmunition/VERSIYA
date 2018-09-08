@@ -17,6 +17,7 @@
      .button_area{font-size:large;text-align:center}
      .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:x-large;}
      .button:hover{transform:scale(1.1)}
+     .link{font-family:Calibri;text-align:left}
      </style>
 </head>
 <body style="background-color:black">
@@ -44,7 +45,12 @@
     <div class="button_area">
         <h1></h1>
         <button class="button"> COMMIT</button>
-        <button class="button"> BACK</button>
     </div>
+
+    <div class="link">
+        <h1></h1>
+        <h1></h1>
+        @Html.ActionLink("Back to login page", "Index", "Login", null, new { @Style = "color:white" })
+ </div>
 </body>
 </html>

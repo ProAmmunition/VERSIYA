@@ -126,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogPageController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -145,7 +144,6 @@
     <Content Include="Views\Registration\Registration_page.cshtml" />
     <Content Include="Views\LogPage\Commit.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Error\Error_Found.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -13,15 +13,16 @@
 </head>
 <body style="background-color:black">
         <style type="text/css">
-    .form-horizontal {color:lawngreen; background:black; text-align:center; font-size:40px;font-family:Impact}
-    .form-group {color:lawngreen; text-align:center; font-family:Calibri;font-size:large}
+    .form-horizontal {color:lawngreen; background:black; text-align:center; font-size:30px;font-family:Impact}
+    .form-group {color:lawngreen; text-align:center; font-family:Calibri;font-size:medium}
     .col-md-10{color:white; text-align:center; font-family:Calibri;font-size:small}
     .button{color:black; background-color:lawngreen; width:130px; text-align:center; font-family:Impact;font-size:x-large}
     .button:hover{transform:scale(1.1)}
     .link{font-family:Calibri;text-align:left}
     .space{color:black;font-size:x-small}
-    .label{background-color:lawngreen;color:black;font-family:Impact;font-size:40px}
-  
+    .label_heading{background-color:lawngreen;color:black;font-family:Impact;font-size:30px}
+    .label_registration{color:lawngreen; text-align:center; font-family:Calibri;font-size:small}
+    .message{font-family:Calibri;font-size:x-small;color:white;text-align:center}
    
   
 
@@ -36,10 +37,14 @@
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <div class="label">
-            <h2>VERSIYA</h2>
-        </div>
-            <hr />
+            <div class="label_heading">
+              <h2>VERSIYA</h2>
+            </div>
+            <div class="label_registration">
+                <h2>REGISTRATION</h2>
+            </div>
+            <hr/>
+           
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 <h1></h1>
@@ -105,13 +110,18 @@
                     <input class="button" type="submit" value="REGISTER" />
                 </div>
             </div>
+            <div class="message">
+                <h1></h1>
+                <h1>@Html.ViewData["Message"]</h1>
+            </div>
+            
         </div>
     }
     
     <div class="link">
         <h1></h1>
         <h1></h1>
-        @Html.ActionLink("Back to login page","Index", "Login", null, new { @Style = "color:lawngreen" })
+        @Html.ActionLink("Back to login page","Index", "Login", null, new { @Style = "color:white" })
        
     </div>
 </body>
