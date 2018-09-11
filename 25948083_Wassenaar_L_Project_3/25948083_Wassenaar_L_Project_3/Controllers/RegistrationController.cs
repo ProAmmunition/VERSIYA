@@ -40,15 +40,15 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         sql_com.ExecuteNonQuery();
                         ViewData["Message"] = "User was successfully registered";
                         sql_con.Close();
-                        return View(user_model);
+                        return RedirectToAction("Index", "Login", new { area = "" });
                     }
                     catch (MySqlException e)
                     {
                        
-                            ViewData["Message"] = "Error, please make sure the ID, username and Email entries is unique";
+                            ViewData["Message"] = "Error, please make sure the ID, username and Email entries does not already exist";
                         
                     }
-                    return View();
+                    return View(user_model);
                 }
 
 
