@@ -14,20 +14,30 @@
      .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:center}
      .history_heading {color:lawngreen; font-size:x-small;font-family:Calibri;text-align:center}
      .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 1000px; height: 300px; overflow: scroll;background:white; color: black;}
-     .button_area{font-size:large;text-align:center}
-     .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:x-large;}
+     .button_area{font-size:large;text-align:left}
+     .button_area_2{font-size:large;text-align:left}
+     .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:large}
      .button:hover{transform:scale(1.1)}
      .link{font-family:Calibri;text-align:left}
+     .view_data{color:white;font-size:xx-small}
+     .browse{color:white;text-align:left}
      </style>
 </head>
 <body style="background-color:black">
+@using (Html.BeginForm("Commit", "LogPage", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
     <div class="heading">
         <h1>VERSIYA</h1>
     </div>
-
+    <div class="browse">
+        @Html.TextBox("File","", new { type = "File"})
+    </div>
     <div class="button_area">
-        <button class="button"> ADD NEW PROJECT</button>
-        <button class="button"> EXISTING PROJECT</button>
+        <h1></h1>
+        <input type="submit" value ="UPLOAD" class="button" />
+        <div class="view_data">
+            <h1>@Html.ViewData["Message"]</h1>
+        </div>
     </div>
     <h1></h1>
     <div class="history_heading">
@@ -42,7 +52,7 @@
         <input id="description" type="text" size="70" height="50" />
     </div>
     <h1></h1>
-    <div class="button_area">
+    <div class="button_area_2">
         <h1></h1>
         <button class="button"> COMMIT</button>
     </div>
@@ -52,5 +62,6 @@
         <h1></h1>
         @Html.ActionLink("Back to login page", "Index", "Login", null, new { @Style = "color:white" })
  </div>
+}
 </body>
 </html>
