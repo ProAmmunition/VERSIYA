@@ -19,7 +19,7 @@
      .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:large}
      .button:hover{transform:scale(1.1)}
      .link{font-family:Calibri;text-align:left}
-     .view_data{color:white;font-size:xx-small}
+     .view_data{color:white;font-size:6px;font-family:Calibri}
      .browse{color:white;text-align:left}
      </style>
 </head>
@@ -31,6 +31,7 @@
     </div>
     <div class="browse">
         @Html.TextBox("File","", new { type = "File"})
+        @Html.ActionLink("Click here to download", "DownloadFile", new {})
     </div>
     <div class="button_area">
         <h1></h1>
@@ -52,10 +53,7 @@
         <input id="description" type="text" size="70" height="50" />
     </div>
     <h1></h1>
-    <div class="button_area_2">
-        <h1></h1>
-        <button class="button"> COMMIT</button>
-    </div>
+   
 
     <div class="link">
         <h1></h1>
