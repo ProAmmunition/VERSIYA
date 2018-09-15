@@ -1,0 +1,66 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+  
+     <style type="text/css">
+     
+     .heading {color:black; background:lawngreen; text-align:center; font-size:x-large;font-family:Impact}
+     .sup_headings {color:lawngreen; background:black; font-size:x-large;font-family:Calibri}
+     .content  {color:white; background:black; font-size:medium;font-family:Calibri}
+     .back_link{text-align:left;font-size:large}
+
+     </style>
+</head>
+<body style="background-color:black">
+    @model List<string>
+  
+    <div class="heading">
+        <h2>VIEW AND EDIT EXISTING FILES</h2>
+    </div>
+    <div class="back_link">
+        <h1></h1>
+        @Html.ActionLink("<<Go back", "Commit", "LogPage", new { @Style = "color:lawngreen" })
+    </div>
+        <table>
+            <tr>
+                <th>
+                    <div class="sup_headings">
+                        FILE NAME: 
+                     </div>
+                </th>
+                <th>
+                    <div class="sup_headings">
+                        LINK:
+                    </div>
+                </th>
+            </tr>
+ 
+            @for (var increment = 0; increment <= Model.Count - 1; increment++)
+            {
+                <tr>
+
+                    <td>
+                        <div class="content">
+                           
+                    @Model[increment].ToString() 
+                        </div>
+                    </td>
+                    <td>
+                    @Html.ActionLink("Download", "Download", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen"}) 
+                   </td>
+                </tr>
+            }
+        </table>
+
+
+    
+    
+    
+</body>
+</html>
+

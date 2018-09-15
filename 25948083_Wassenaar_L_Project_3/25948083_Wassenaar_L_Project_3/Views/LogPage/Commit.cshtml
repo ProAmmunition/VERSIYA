@@ -11,31 +11,31 @@
     <title>Commit</title>
      <style type="text/css">
      .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
-     .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:center}
+     .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:left}
      .history_heading {color:lawngreen; font-size:x-small;font-family:Calibri;text-align:center}
      .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 1000px; height: 300px; overflow: scroll;background:white; color: black;}
-     .button_area{font-size:large;text-align:left}
+     .button_area{font-size:large;text-align:center;font-family:Impact}
      .button_area_2{font-size:large;text-align:left}
-     .button {width: 200px; color: black; background-color:lawngreen; font-family:Impact; font-size:large}
+     .button {width: 200px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
      .button:hover{transform:scale(1.1)}
      .link{font-family:Calibri;text-align:left}
      .view_data{color:white;font-size:6px;font-family:Calibri}
-     .browse{color:white;text-align:left}
+     .browse{color:white;text-align:center;color:lawngreen;font-family:Calibri}
+     .link_2{font-family:Calibri;text-align:center;font-size:large}
      </style>
 </head>
 <body style="background-color:black">
-@using (Html.BeginForm("Commit", "LogPage", FormMethod.Post, new {enctype = "multipart/form-data"}))
+@using (Html.BeginForm("Commit", "LogPage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="heading">
         <h1>VERSIYA</h1>
     </div>
     <div class="browse">
-        @Html.TextBox("File","", new { type = "File"})
-        @Html.ActionLink("Click here to download", "DownloadFile", new {})
-    </div>
-    <div class="button_area">
+        @Html.TextBox("File", "", new { type = "File" })
         <h1></h1>
-        <input type="submit" value ="UPLOAD" class="button" />
+        <label for="description">Description:  </label>
+        <input id="description" type="text" size="70" height="50" />
+        <input type="submit" value="UPLOAD" class="button" />
         <div class="view_data">
             <h1>@Html.ViewData["Message"]</h1>
         </div>
@@ -47,10 +47,8 @@
     <div class="log_area">
         
     </div>
-    <div class="label">
-        <h1></h1>
-        <label for="description">DESCRIBTION OF CHANGES:  </label>
-        <input id="description" type="text" size="70" height="50" />
+    <div class="link_2">
+        @Html.ActionLink("View and Edit existing files", "downloads", "LogPage", null, new { @Style = "color:lawngreen" })
     </div>
     <h1></h1>
    
@@ -58,7 +56,7 @@
     <div class="link">
         <h1></h1>
         <h1></h1>
-        @Html.ActionLink("Back to login page", "Index", "Login", null, new { @Style = "color:white" })
+        @Html.ActionLink("<<Back to login page", "Index", "Login", null, new { @Style = "color:lawngreen" })
  </div>
 }
 </body>

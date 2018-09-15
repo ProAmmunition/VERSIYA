@@ -144,6 +144,7 @@
     <Content Include="Views\Registration\Registration_page.cshtml" />
     <Content Include="Views\LogPage\Commit.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\LogPage\Downloads.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
