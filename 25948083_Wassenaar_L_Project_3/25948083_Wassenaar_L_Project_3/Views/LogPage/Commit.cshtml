@@ -1,4 +1,4 @@
-﻿
+﻿@model _25948083_Wassenaar_L_Project_3.Models.FileModel
 @{
     Layout = null;
 }
@@ -27,15 +27,17 @@
 <body style="background-color:black">
 @using (Html.BeginForm("Commit", "LogPage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
     <div class="heading">
         <h1>VERSIYA</h1>
     </div>
     <div class="browse">
+
         @Html.TextBox("File", "", new { type = "File" })
         <h1></h1>
-        <label for="description">Description:  </label>
-        <input id="description" type="text" size="70" height="50" />
-        <input type="submit" value="UPLOAD" class="button" />
+        @Html.LabelFor(model => model.file_descripion)
+        @Html.TextBoxFor(model => model.file_descripion)
+        <input type="submit" value="UPLOAD/UPDATE" class="button" />
         <div class="view_data">
             <h1>@Html.ViewData["Message"]</h1>
         </div>
@@ -48,16 +50,17 @@
         
     </div>
     <div class="link_2">
-        @Html.ActionLink("View and Edit existing files", "downloads", "LogPage", null, new { @Style = "color:lawngreen" })
+        @Html.ActionLink("View existing files", "downloads", "LogPage", null, new { @Style = "color:lawngreen" })
     </div>
     <h1></h1>
-   
+
 
     <div class="link">
         <h1></h1>
         <h1></h1>
         @Html.ActionLink("<<Back to login page", "Index", "Login", null, new { @Style = "color:lawngreen" })
  </div>
+}
 }
 </body>
 </html>
