@@ -26,14 +26,13 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             {
 
 
-                string sql_statement = "INSERT INTO user VALUES(@user_id,@username,@user_password,@user_email_address)";
+                string sql_statement = "INSERT INTO user VALUES(@username,@user_password,@user_email_address)";
                 using (MySqlCommand sql_com = new MySqlCommand(sql_statement))
                 {
                     try
                     {
                         sql_com.Connection = sql_con;
                         sql_con.Open();
-                        sql_com.Parameters.AddWithValue("@user_id", user_model.User_id);
                         sql_com.Parameters.AddWithValue("@username", user_model.Username);
                         sql_com.Parameters.AddWithValue("@user_password", user_model.hash(user_model.Password));
                         sql_com.Parameters.AddWithValue("@user_email_address", user_model.Email);
@@ -45,7 +44,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                     catch (MySqlException e)
                     {
                        
-                            ViewData["Message"] = "Error, please make sure the ID, username and Email entries does not already exist";
+                            ViewData["Message"] = "Error, please make sure the password,username and Email entries does not already exist";
                         
                     }
                     return View(user_model);

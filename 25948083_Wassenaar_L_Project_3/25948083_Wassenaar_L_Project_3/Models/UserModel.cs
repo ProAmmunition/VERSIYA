@@ -10,11 +10,6 @@ namespace _25948083_Wassenaar_L_Project_3.Models
 {
     public class UserModel
     {
-        [Display(Name = "USER ID")]
-        [Required(ErrorMessage = "ID is required")]
-        [StringLength(13, ErrorMessage = "Must be 13 characters", MinimumLength = 13)]
-        public string User_id { get; set; }
-
         [Display(Name = "USERNAME")]
         [Required(ErrorMessage = "Username is required")]
         [StringLength(25, ErrorMessage = "Must be between 3 and 25 characters", MinimumLength = 3)]

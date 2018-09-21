@@ -12,11 +12,10 @@ using _25948083_Wassenaar_L_Project_3.Models;
 
 namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
-    public class LogPageController : Controller
+    public class FilePageController : Controller
     {
         public string connection = "datasource = den1.mysql4.gear.host; port=3306; Initial Catalog = 'versiyadb'; username='versiyadb';password='En5KD_989Z-9';";
-        public static string file_name = "", file_existing_new = "", file_extension = "", mb_to_decimal = "", file_message = "";
-        public static double file_size, to_mb;
+        string file_name = "";
         [HttpGet]
         public ActionResult Commit()
         {
@@ -26,36 +25,42 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         [HttpPost]
         public ActionResult Commit(HttpPostedFileBase file, FileModel file_model)
         {
+           string file_existing_new = "", file_extension = "", file_size = "", file_message = "";
            if (file != null)
             {
                 file_name = Path.GetFileName(file.FileName);
-                file_size = file.ContentLength;
-                to_mb = (file_size / 1024) / 1024;
-                mb_to_decimal = string.Format("{0:N2}", to_mb);
+                file_size = file_model.determine_file_size_in_mb(file.ContentLength);
                 file_extension = Path.GetExtension(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
-
                 file_existing_new = file_model.exsiting_new_file(path);
                 file_message = file_model.exsiting_new_file_message(path);
                 file.SaveAs(path);
+                dbConnection(connection, file_name, file_size, file_extension, file_existing_new, file_model);
+                ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
             }
             else
             {
                 ViewData["Message"] = "Choose a file first";
             }
-            dbConnection(connection,file_model);
+            
           
             return View();
         }
 
-        public ActionResult Downloads()
+        public ActionResult Downloads(FileModel file_model)
         {
             var dir = new DirectoryInfo(Server.MapPath("~/Uploads/"));
             FileInfo[] file_names = dir.GetFiles();
             List<string> items = new List<string>();
+            int file_count = 0;
             foreach (var file in file_names)
             {
-                items.Add(file.Name);
+               DateTime last_edit = file.LastWriteTimeUtc;
+               string extension = file.Extension;
+               string file_size = file_model.determine_file_size_in_mb(file.Length);
+               items.Add(file.Name);
+               ViewData[Convert.ToString(file_count)] = "[Last Edit: " + last_edit + "] [Extension:" + extension + "] [File size:" + file_size + "mb]";
+               file_count++;
             }
             return View(items);
         }
@@ -66,10 +71,8 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return File(file_path, "application/force-download", Path.GetFileName(file_path));
         }
 
-        public void dbConnection(string connection,FileModel file_model)
+        public void dbConnection(string connection,string file_name,string file_size,string file_extension,string file_existing_new,FileModel file_model)
         {
-            
-
             using (MySqlConnection sql_con = new MySqlConnection(connection))
             {
                 string sql_statement = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_existing_new)";
@@ -77,19 +80,16 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 {
                     try
                     {
-                        Random ran = new Random();
-                        int file_id = ran.Next(10000000, 99999999);
                         sql_com.Connection = sql_con;
                         sql_con.Open();
-                        sql_com.Parameters.AddWithValue("@file_id", file_id);
+                        sql_com.Parameters.AddWithValue("@file_id", file_model.generate_file_id());
                         sql_com.Parameters.AddWithValue("@file_name", file_name);
                         sql_com.Parameters.AddWithValue("@file_description", file_model.file_descripion);
-                        sql_com.Parameters.AddWithValue("@file_upload_dateTime", DateTime.Now.ToString("MM / dd / yyyy hh: mm tt"));
-                        sql_com.Parameters.AddWithValue("@file_size", mb_to_decimal);
+                        sql_com.Parameters.AddWithValue("@file_upload_dateTime", DateTime.Now);
+                        sql_com.Parameters.AddWithValue("@file_size", file_size);
                         sql_com.Parameters.AddWithValue("@file_extension", file_extension);
-                        sql_com.Parameters.AddWithValue("@file_existing_new", file_existing_new);
+                        sql_com.Parameters.AddWithValue("@file_upload_update", file_existing_new);
                         sql_com.ExecuteNonQuery();
-                        ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now.ToString("MM / dd / yyyy hh: mm tt") + "] [File size: " + mb_to_decimal + "MB] [File Extension: " + file_extension + "]";
                         sql_con.Close();
                     }
                     catch (MySqlException e)
@@ -99,6 +99,32 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 }
             }
 
+        }
+
+        public ActionResult Uploads()
+        {
+            List<UploadModel> list = new List<UploadModel>();
+            string sql_statement = "SELECT * FROM upload_file WHERE file_name =" + file_name + " ORDER BY file_upload_dataTime";
+            using (MySqlConnection sql_con = new MySqlConnection(connection))
+            {
+                MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
+                sql_con.Open();
+                MySqlDataReader reader = sql_com.ExecuteReader();
+                while (reader.Read())
+                {
+                    var upload_data = new UploadModel();
+                    upload_data.file_name = reader[1].ToString();
+                    upload_data.file_description = reader["file_description"].ToString();
+                    upload_data.file_upload_dateTime = reader["file_upload_dateTime"].ToString();
+                    upload_data.file_size = reader["file_size"].ToString();
+                    upload_data.file_extension= reader["file_extension"].ToString();
+                    upload_data.file_upload_update= reader["file_upload_update"].ToString();
+                    list.Add(upload_data);
+                    
+                }
+            }
+
+            return View(list);
         }
 
     }

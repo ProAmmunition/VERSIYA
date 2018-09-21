@@ -25,13 +25,13 @@
     </div>
     <div class="back_link">
         <h1></h1>
-        @Html.ActionLink("<<Go back", "Commit", "LogPage", new { @Style = "color:white" })
+        @Html.ActionLink("<<Go back", "Commit", "FilePage", new { @Style = "color:white" })
     </div>
         <table>
             <tr>
                 <th>
                     <div class="sup_headings">
-                        FILE NAME: 
+                        FILE INFO: 
                      </div>
                 </th>
                
@@ -48,9 +48,10 @@
 
                     <td>
                         <div class="content">
-                           
-                    @Model[increment].ToString() 
-                        </div>
+                          
+                    @Model[increment].ToString()
+                    @ViewData[Convert.ToString(increment)]
+                       </div>
                     </td>
                   
                     <td>
@@ -58,12 +59,7 @@
                    </td>
                 </tr>
             }
-        </table>
-
-
-    
-    
-    
+        </table>  
 </body>
 </html>
 

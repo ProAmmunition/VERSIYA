@@ -16,11 +16,11 @@ namespace _25948083_Wassenaar_L_Project_3.Models
             string file;
             if (System.IO.File.Exists(path))
             {
-                file = "existing";
+                file = "update";
             }
             else
             {
-                file = "new";
+                file = "initial upload";
             }
             return file;
         }
@@ -38,6 +38,19 @@ namespace _25948083_Wassenaar_L_Project_3.Models
                 message = "File has been uploaded";
             }
             return message;
+        }
+        public string determine_file_size_in_mb(double file_size)
+        {
+            double to_mb = (file_size / 1024) / 1024;
+            string mb_to_decimal = string.Format("{0:N2}", to_mb);
+            return mb_to_decimal;
+        }
+
+        public int generate_file_id()
+        {
+            Random ran = new Random();
+            int file_id = ran.Next(1, 99999999);
+            return file_id;
         }
     }
 }

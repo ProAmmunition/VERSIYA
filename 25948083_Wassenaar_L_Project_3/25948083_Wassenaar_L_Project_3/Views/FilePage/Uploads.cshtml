@@ -1,0 +1,83 @@
+﻿@model IEnumerable<_25948083_Wassenaar_L_Project_3.Models.UploadModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Uploads</title>
+      <style type="text/css">
+     .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
+     .supheading {color:lawngreen; text-align:center; font-size:medium;font-family:Calibri}
+     .history_heading {color:lawngreen; font-size:x-small;font-family:Calibri;text-align:center;}
+     .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 900px; height: 300px; overflow: scroll;background:white; color: black;display:inline-table;}
+     .body_of_container{text-align:center}
+     </style>
+</head>
+<body style="background-color:black">
+    <div class="heading">
+        <h1>VERSIYA</h1>
+    </div>
+    <div class="supheading">
+        <h1>HISTORY LOG</h1>
+    </div>
+    <div class="body_of_container">
+        <div class="log_area">
+            <table cellspacing="10">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_upload_dateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_size)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_extension)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_upload_update)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_upload_dateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_size)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_extension)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_upload_update)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+    <h1>-----</h1>
+    @Html.ActionLink("<<Back to file page", "Commit", "FilePage", null, new { @Style = "color:lawngreen" })
+</body>
+</html>
