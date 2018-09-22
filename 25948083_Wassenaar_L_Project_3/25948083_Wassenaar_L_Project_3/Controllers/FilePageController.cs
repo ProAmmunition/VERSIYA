@@ -15,7 +15,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
     public class FilePageController : Controller
     {
         public string connection = "datasource = den1.mysql4.gear.host; port=3306; Initial Catalog = 'versiyadb'; username='versiyadb';password='En5KD_989Z-9';";
-        string file_name = "";
+        public static string file_name,file_message;
         [HttpGet]
         public ActionResult Commit()
         {
@@ -25,7 +25,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         [HttpPost]
         public ActionResult Commit(HttpPostedFileBase file, FileModel file_model)
         {
-           string file_existing_new = "", file_extension = "", file_size = "", file_message = "";
+            string file_existing_new = "", file_extension = "", file_size = "";
            if (file != null)
             {
                 file_name = Path.GetFileName(file.FileName);
@@ -36,7 +36,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 file_message = file_model.exsiting_new_file_message(path);
                 file.SaveAs(path);
                 dbConnection(connection, file_name, file_size, file_extension, file_existing_new, file_model);
-                ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
+               
             }
             else
             {
@@ -75,7 +75,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         {
             using (MySqlConnection sql_con = new MySqlConnection(connection))
             {
-                string sql_statement = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_existing_new)";
+                string sql_statement = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_upload_update)";
                 using (MySqlCommand sql_com = new MySqlCommand(sql_statement))
                 {
                     try
@@ -86,10 +86,11 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         sql_com.Parameters.AddWithValue("@file_name", file_name);
                         sql_com.Parameters.AddWithValue("@file_description", file_model.file_descripion);
                         sql_com.Parameters.AddWithValue("@file_upload_dateTime", DateTime.Now);
-                        sql_com.Parameters.AddWithValue("@file_size", file_size);
+                        sql_com.Parameters.AddWithValue("@file_size", file_size+"mb");
                         sql_com.Parameters.AddWithValue("@file_extension", file_extension);
                         sql_com.Parameters.AddWithValue("@file_upload_update", file_existing_new);
                         sql_com.ExecuteNonQuery();
+                        ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
                         sql_con.Close();
                     }
                     catch (MySqlException e)
@@ -104,12 +105,14 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         public ActionResult Uploads()
         {
             List<UploadModel> list = new List<UploadModel>();
-            string sql_statement = "SELECT * FROM upload_file WHERE file_name =" + file_name + " ORDER BY file_upload_dataTime";
             using (MySqlConnection sql_con = new MySqlConnection(connection))
             {
-                MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
-                sql_con.Open();
-                MySqlDataReader reader = sql_com.ExecuteReader();
+             string sql_statement = "SELECT * FROM upload_file WHERE file_name = @File_name ORDER BY file_upload_dateTime;";
+                ViewData["q"] = sql_statement;
+             MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
+                sql_com.Parameters.AddWithValue("@File_name", file_name);
+             sql_con.Open();
+             MySqlDataReader reader = sql_com.ExecuteReader();
                 while (reader.Read())
                 {
                     var upload_data = new UploadModel();
