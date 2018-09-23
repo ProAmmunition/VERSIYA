@@ -108,15 +108,21 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             using (MySqlConnection sql_con = new MySqlConnection(connection))
             {
              string sql_statement = "SELECT * FROM upload_file WHERE file_name = @File_name ORDER BY file_upload_dateTime;";
-                ViewData["q"] = sql_statement;
+                if (file_name != null)
+                {
+                    ViewData["file_info"] = "Log for " + file_name;
+                }
+                else
+                {
+                    ViewData["file_info"] = "No file was uploaded"; 
+                }
              MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
-                sql_com.Parameters.AddWithValue("@File_name", file_name);
+             sql_com.Parameters.AddWithValue("@File_name", file_name);
              sql_con.Open();
              MySqlDataReader reader = sql_com.ExecuteReader();
                 while (reader.Read())
                 {
                     var upload_data = new UploadModel();
-                    upload_data.file_name = reader[1].ToString();
                     upload_data.file_description = reader["file_description"].ToString();
                     upload_data.file_upload_dateTime = reader["file_upload_dateTime"].ToString();
                     upload_data.file_size = reader["file_size"].ToString();

@@ -16,9 +16,8 @@
     .form-horizontal {color:lawngreen; background:black; text-align:center; font-size:30px;font-family:Impact}
     .form-group {color:lawngreen; text-align:center; font-family:Calibri;font-size:medium}
     .col-md-10{color:white; text-align:center; font-family:Calibri;font-size:small}
-    .button{color:lawngreen; background-color:black; width:130px; text-align:center; font-family:Calibri;font-size:x-large;border-radius: 12px;border-color:lawngreen}
+    .button{color:lawngreen; background-color:black; width:170px; text-align:center; font-family:Calibri;font-size:x-large;border-radius: 12px;border-color:lawngreen}
     .button:hover{transform:scale(1.1)}
-    .link{font-family:Calibri;text-align:left}
     .space{color:black;font-size:x-small}
     .label_heading{background-color:lawngreen;color:black;font-family:Impact;font-size:30px}
     .label_registration{color:lawngreen; text-align:center; font-family:Calibri;font-size:small}
@@ -98,6 +97,8 @@
                     </div>
                     
                     <input class="button" type="submit" value="REGISTER" />
+                    <h1></h1>
+                    <input type="button" class="button" value="BACK TO LOGIN" onclick="location.href='@Url.Action("Index","Login")'">
                 </div>
             </div>
             <div class="message">
@@ -107,12 +108,5 @@
             
         </div>
     }
-    
-    <div class="link">
-        <h1></h1>
-        <h1></h1>
-        @Html.ActionLink("<<Back to login","Index", "Login", null, new { @Style = "color:white" })
-       
-    </div>
 </body>
 </html>

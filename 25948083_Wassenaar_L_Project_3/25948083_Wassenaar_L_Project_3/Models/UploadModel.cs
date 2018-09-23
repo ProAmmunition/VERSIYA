@@ -9,22 +9,22 @@ namespace _25948083_Wassenaar_L_Project_3.Models
 {
     public class UploadModel
     {
-        [Display(Name = "File name")]
+        [Display(Name = "FILE NAME")]
         public string file_name { get; set; }
 
-        [Display(Name = "File description")]
+        [Display(Name = "FILE DESCRIPTION")]
         public string file_description { get; set; }
 
-        [Display(Name = "File edit/upload date ")]
+        [Display(Name = "FILE EDIT/UPLOAD DATE")]
         public string file_upload_dateTime { get; set; }
 
-        [Display(Name = "File size")]
+        [Display(Name = "FILE SIZE")]
         public string file_size { get; set; }
 
-        [Display(Name = "File extension")]
+        [Display(Name = "FILE EXTENSION")]
         public string file_extension { get; set; }
 
-        [Display(Name = "Initail Upload/Update")]
+        [Display(Name = "INITIAL UPLOAD/UPDATE")]
         public string file_upload_update { get; set; }
     }
 }

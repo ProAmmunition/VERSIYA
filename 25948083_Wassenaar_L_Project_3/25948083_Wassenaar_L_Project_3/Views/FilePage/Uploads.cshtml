@@ -12,27 +12,25 @@
     <title>Uploads</title>
       <style type="text/css">
      .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
-     .supheading {color:lawngreen; text-align:center; font-size:medium;font-family:Calibri}
+     .supheading {color:lawngreen; text-align:center; font-size:small;font-family:Calibri}
      .history_heading {color:lawngreen; font-size:x-small;font-family:Calibri;text-align:center;}
-     .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 900px; height: 300px; overflow: scroll;background:white; color: black;display:inline-table;}
+     .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 900px; height: 300px; overflow: scroll;background:black; color: lawngreen;display:inline-table;border-color:lawngreen;text-align:center}
      .body_of_container{text-align:center}
+     .table_heading{text-align:center;color}
      </style>
 </head>
 <body style="background-color:black">
     <div class="heading">
-        <h1>VERSIYA</h1>
+        <h1>HISTORY LOG</h1>
     </div>
     <div class="supheading">
-        <h1>HISTORY LOG</h1>
-        <h1>@Html.ViewData["q"]</h1>
+        <h1>@Html.ViewData["file_info"]</h1>
     </div>
     <div class="body_of_container">
         <div class="log_area">
             <table cellspacing="10">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.file_name)
-                    </th>
+                
+                <tr style="color:white">
                     <th>
                         @Html.DisplayNameFor(model => model.file_description)
                     </th>
@@ -53,9 +51,6 @@
                 @foreach (var item in Model)
             {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.file_name)
-                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.file_description)
                         </td>
@@ -79,6 +74,7 @@
         </div>
     </div>
     <h1>-----</h1>
-    @Html.ActionLink("<<Back to file page", "Commit", "FilePage", null, new { @Style = "color:lawngreen" })
+    <h1>-----</h1>
+    @Html.ActionLink("<<Back to file page", "Commit", "FilePage", null, new { @Style = "color:white;font-size:large" })
 </body>
 </html>

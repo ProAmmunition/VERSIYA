@@ -10,36 +10,45 @@
     <meta name="viewport" content="width=device-width" />
     <title>Commit</title>
      <style type="text/css">
-     .heading {color:black; background:lawngreen; text-align:center; font-size:xx-large;font-family:Impact}
-     .supheading {color:lawngreen;text-align:center; font-size:medium;font-family:Calibri}
+      @@keyframes flicker {from { opacity: 0; }to { opacity: 1;}}
+     .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
      .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:left}
      .button_area{font-size:large;text-align:center;font-family:Impact}
      .button_area_2{font-size:large;text-align:left}
-     .button {width: 300px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
+     .button {width: 230px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
+     .button_browse {width: 350px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
      .button:hover{transform:scale(1.1)}
-     .link{font-family:Calibri;text-align:left}
+     .link{font-family:Calibri;text-align:left;font-size:medium}
      .view_data{color:white;font-size:6px;font-family:Calibri}
-     .browse{color:white;text-align:center;color:lawngreen;font-family:Calibri;font-size:medium}
+     .browse{color:white;text-align:center;color:lawngreen;font-family:Calibri;font-size:medium;width}
      .link_2{font-family:Calibri;text-align:center;font-size:large}
-     .textbox_size{width:500px;}
-     .panel_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 700px; height: 250px;background:black; color: black;text-align:center}
+     .textbox_size{width:500px}
+     .panel_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 700px; height: 180px;background:black; color: black;text-align:center;border-radius: 12px;border-color:lawngreen}
+     .info { position: relative; display: inline-block;color:lawngreen;background-color:black;font-family:Arial;font-weight:bold;border-radius:6px;font-size:x-large;animation-name:flicker; animation: 5s linear infinite flicker}
+     .info .info_text {visibility: hidden;width: 350px;background-color: lawngreen;color: black;text-align: center;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1;border-color:lawngreen}
+     .info:hover .info_text {visibility: visible;}
+       
+     input[type='file']::-webkit-file-upload-button{width: 120px; color: black; background-color:lawngreen; font-family:Calibri;font-weight:bold; font-size:large;border-radius: 12px;border-color:lawngreen}
      </style>
+
 </head>
 
 <body style="background-color:black">
 @using (Html.BeginForm("Commit", "FilePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-
     <div class="heading">
-        <h1>VERSIYA</h1>
-    </div>
-    <div class="supheading">
         <h1>UPLOAD OR UPDATE AN EXISTING FILE</h1>
     </div>
+
+    <div class="info">
+        Info?
+        <span class="info_text">The web application will automatically detect if an uploaded file exists</span>
+    </div>
+    <h1></h1>
     <div class="panel_area">
         <div class="browse">
-
-            @Html.TextBox("File", "", new { type = "File", @class = "button"})
+            <h1></h1>
+            @Html.TextBox("File", "", new { type = "File", @class = "button_browse"})
             <h1></h1>
             @Html.LabelFor(model => model.file_descripion)
             @Html.TextBoxFor(model => model.file_descripion, new { @class = "textbox_size" })
@@ -49,20 +58,24 @@
             <div class="view_data">
                 <h1>@Html.ViewData["Message"]</h1>
             </div>
+            
         </div>
 
-        <div class="link_2">
-            <p></p>
-            @Html.ActionLink("Modified file history", "Uploads", "FilePage", null, new { @Style = "color:lawngreen" })
-            <p></p>
-            @Html.ActionLink("View existing files", "downloads", "FilePage", null, new { @Style = "color:lawngreen" })
-        </div>
+     
         <h1></h1>
+    </div>
+
+    <div class="link_2">
+        <p></p>
+        <input type="button" class="button" value="FILE LOG" onclick="location.href='@Url.Action("Uploads","FilePage")'">
+        <input type="button" class="button" value="UPLOADED FILES" onclick="location.href='@Url.Action("downloads","FilePage")'">
     </div>
 
     <div class="link">
         <h1>-----</h1>
-        @Html.ActionLink("<<Back to login page", "Index", "Login", null, new { @Style = "color:lawngreen" })
+        <h1>-----</h1>
+        <h1>-----</h1>
+        @Html.ActionLink("<<Back to login page", "Index", "Login", null, new { @Style = "color:white" })
  </div>
 }
 
