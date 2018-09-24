@@ -34,9 +34,8 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 return RedirectToAction("Commit", "FilePage", new { area = "" });
             }
             else
-            {
                 ViewData["message"] = "Invalid login details";
-            }
+            
             sql_con.Close();
             return View();
         }

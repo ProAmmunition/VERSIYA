@@ -15,20 +15,21 @@
      .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:left}
      .button_area{font-size:large;text-align:center;font-family:Impact}
      .button_area_2{font-size:large;text-align:left}
-     .button {width: 230px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
+     .button {width: 185px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
      .button_browse {width: 350px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
      .button:hover{transform:scale(1.1)}
+     .button_back{color:white; background-color:black; width:130px; text-align:center;font-size:small;border-radius: 12px;border-color:white}
+     .button_back:hover{transform:scale(1.1)}
      .link{font-family:Calibri;text-align:left;font-size:medium}
      .view_data{color:white;font-size:6px;font-family:Calibri}
      .browse{color:white;text-align:center;color:lawngreen;font-family:Calibri;font-size:medium;width}
      .link_2{font-family:Calibri;text-align:center;font-size:large}
-     .textbox_size{width:500px}
-     .panel_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 700px; height: 180px;background:black; color: black;text-align:center;border-radius: 12px;border-color:lawngreen}
-     .info { position: relative; display: inline-block;color:lawngreen;background-color:black;font-family:Arial;font-weight:bold;border-radius:6px;font-size:x-large;animation-name:flicker; animation: 5s linear infinite flicker}
-     .info .info_text {visibility: hidden;width: 350px;background-color: lawngreen;color: black;text-align: center;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1;border-color:lawngreen}
+     .textbox_size{width:500px;border-radius:8px}
+     .panel_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 700px; height: 180px;background-color:black; color: black;text-align:center;border-radius: 12px;border-color:lawngreen}
+     .info { position: relative; display: inline-block;color:lawngreen;background-color:black;border-color:lawngreen;font-family:Arial;font-weight:bold;font-size:x-large;animation-name:flicker; animation: 9s linear infinite flicker}
+     .info .info_text {visibility: hidden;width: 350px;background-color: lawngreen;color: black;text-align:center;font-size:small;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1;border-color:lawngreen}
      .info:hover .info_text {visibility: visible;}
-       
-     input[type='file']::-webkit-file-upload-button{width: 120px; color: black; background-color:lawngreen; font-family:Calibri;font-weight:bold; font-size:large;border-radius: 12px;border-color:lawngreen}
+      input[type='file']::-webkit-file-upload-button{width: 120px; color: black; background-color:lawngreen; font-family:Calibri;font-weight:bold; font-size:large;border-radius: 12px;border-color:lawngreen}
      </style>
 
 </head>
@@ -42,7 +43,7 @@
 
     <div class="info">
         Info?
-        <span class="info_text">The web application will automatically detect if an uploaded file exists</span>
+        <span class="info_text">The web application will automatically detect if an uploaded file exists. Please don't change the file name when updating a particular file</span>
     </div>
     <h1></h1>
     <div class="panel_area">
@@ -75,7 +76,7 @@
         <h1>-----</h1>
         <h1>-----</h1>
         <h1>-----</h1>
-        @Html.ActionLink("<<Back to login page", "Index", "Login", null, new { @Style = "color:white" })
+        <input type="button" class="button_back" value="BACK TO LOGIN" onclick="location.href='@Url.Action("Index","Login")'">
  </div>
 }
 

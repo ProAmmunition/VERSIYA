@@ -7,7 +7,7 @@ namespace _25948083_Wassenaar_L_Project_3.Models
 {
     public class FileModel
     {
-        [Display(Name = "Description")]
+        [Display(Name = "DESCRIPTION")]
         public string file_descripion { get; set; }
 
         public string exsiting_new_file(string path)

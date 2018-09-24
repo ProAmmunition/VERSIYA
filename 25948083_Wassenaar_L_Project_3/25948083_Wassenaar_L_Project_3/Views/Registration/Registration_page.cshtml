@@ -18,13 +18,12 @@
     .col-md-10{color:white; text-align:center; font-family:Calibri;font-size:small}
     .button{color:lawngreen; background-color:black; width:170px; text-align:center; font-family:Calibri;font-size:x-large;border-radius: 12px;border-color:lawngreen}
     .button:hover{transform:scale(1.1)}
+    .button_back{color:white; background-color:black; width:170px; text-align:center; font-family:Calibri;font-size:x-large;border-radius: 12px;border-color:white}
+    .button_back:hover{transform:scale(1.1)}
     .space{color:black;font-size:x-small}
     .label_heading{background-color:lawngreen;color:black;font-family:Impact;font-size:30px}
     .label_registration{color:lawngreen; text-align:center; font-family:Calibri;font-size:small}
     .message{font-family:Calibri;font-size:x-small;color:white;text-align:center}
-   
-  
-
     </style>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -98,7 +97,7 @@
                     
                     <input class="button" type="submit" value="REGISTER" />
                     <h1></h1>
-                    <input type="button" class="button" value="BACK TO LOGIN" onclick="location.href='@Url.Action("Index","Login")'">
+                    <input type="button" class="button_back" value="BACK TO LOGIN" onclick="location.href='@Url.Action("Index","Login")'">
                 </div>
             </div>
             <div class="message">

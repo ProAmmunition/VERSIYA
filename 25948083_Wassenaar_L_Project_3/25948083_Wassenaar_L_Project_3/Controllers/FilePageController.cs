@@ -25,25 +25,25 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         [HttpPost]
         public ActionResult Commit(HttpPostedFileBase file, FileModel file_model)
         {
-            string file_existing_new = "", file_extension = "", file_size = "";
+          string file_existing_new = "", file_extension = "", file_size = "";
            if (file != null)
             {
-                file_name = Path.GetFileName(file.FileName);
-                file_size = file_model.determine_file_size_in_mb(file.ContentLength);
-                file_extension = Path.GetExtension(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
-                file_existing_new = file_model.exsiting_new_file(path);
-                file_message = file_model.exsiting_new_file_message(path);
-                file.SaveAs(path);
-                dbConnection(connection, file_name, file_size, file_extension, file_existing_new, file_model);
+                try
+                {
+                    file_name = Path.GetFileName(file.FileName);
+                    file_size = file_model.determine_file_size_in_mb(file.ContentLength);
+                    file_extension = Path.GetExtension(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
+                    file_existing_new = file_model.exsiting_new_file(path);
+                    file_message = file_model.exsiting_new_file_message(path);
+                    file.SaveAs(path);
+                    dbConnection(connection, file_name, file_size, file_extension, file_existing_new, file_model);
+                }
+                catch(HttpException e){ ViewData["message"] = e.Message;}
                
             }
             else
-            {
                 ViewData["Message"] = "Choose a file first";
-            }
-            
-          
             return View();
         }
 
@@ -55,7 +55,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             int file_count = 0;
             foreach (var file in file_names)
             {
-               DateTime last_edit = file.LastWriteTimeUtc;
+               DateTime last_edit = file.LastWriteTime;
                string extension = file.Extension;
                string file_size = file_model.determine_file_size_in_mb(file.Length);
                items.Add(file.Name);
@@ -76,11 +76,10 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             using (MySqlConnection sql_con = new MySqlConnection(connection))
             {
                 string sql_statement = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_upload_update)";
-                using (MySqlCommand sql_com = new MySqlCommand(sql_statement))
+                using (MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con))
                 {
                     try
                     {
-                        sql_com.Connection = sql_con;
                         sql_con.Open();
                         sql_com.Parameters.AddWithValue("@file_id", file_model.generate_file_id());
                         sql_com.Parameters.AddWithValue("@file_name", file_name);
@@ -93,10 +92,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
                         sql_con.Close();
                     }
-                    catch (MySqlException e)
-                    {
-                        ViewData["Message"] = e.Message;
-                    }
+                    catch (MySqlException e){ ViewData["Message"] = e.Message;}
                 }
             }
 
@@ -109,13 +105,10 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             {
              string sql_statement = "SELECT * FROM upload_file WHERE file_name = @File_name ORDER BY file_upload_dateTime;";
                 if (file_name != null)
-                {
                     ViewData["file_info"] = "Log for " + file_name;
-                }
                 else
-                {
                     ViewData["file_info"] = "No file was uploaded"; 
-                }
+                
              MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
              sql_com.Parameters.AddWithValue("@File_name", file_name);
              sql_con.Open();
@@ -126,7 +119,6 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                     upload_data.file_description = reader["file_description"].ToString();
                     upload_data.file_upload_dateTime = reader["file_upload_dateTime"].ToString();
                     upload_data.file_size = reader["file_size"].ToString();
-                    upload_data.file_extension= reader["file_extension"].ToString();
                     upload_data.file_upload_update= reader["file_upload_update"].ToString();
                     list.Add(upload_data);
                     
