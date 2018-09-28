@@ -26,5 +26,8 @@ namespace _25948083_Wassenaar_L_Project_3.Models
 
         [Display(Name = "INITIAL UPLOAD/UPDATE")]
         public string file_upload_update { get; set; }
+
+        [Display(Name = "UPLOADED/UPDATED BY")]
+        public string upload_username { get; set; }
     }
 }

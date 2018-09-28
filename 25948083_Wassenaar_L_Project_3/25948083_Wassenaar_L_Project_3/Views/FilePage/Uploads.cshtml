@@ -34,6 +34,9 @@
                 
                 <tr style="color:white">
                     <th>
+                        @Html.DisplayNameFor(model => model.upload_username)
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.file_description)
                     </th>
                     <th>
@@ -50,6 +53,9 @@
                 @foreach (var item in Model)
             {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.upload_username)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.file_description)
                         </td>

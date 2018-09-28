@@ -19,14 +19,16 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         [HttpGet]
         public ActionResult Commit()
         {
+            @TempData.Keep("get_username");
             return View();
         }
 
         [HttpPost]
-        public ActionResult Commit(HttpPostedFileBase file, FileModel file_model)
+        public ActionResult Commit(HttpPostedFileBase file, FileModel file_model, LoginModel login)
         {
           string file_existing_new = "", file_extension = "", file_size = "";
-           if (file != null)
+ 
+            if (file != null)
             {
                 try
                 {
@@ -37,7 +39,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                     file_existing_new = file_model.exsiting_new_file(path);
                     file_message = file_model.exsiting_new_file_message(path);
                     file.SaveAs(path);
-                    dbConnection(connection, file_name, file_size, file_extension, file_existing_new, file_model);
+                    insert_upload_info(connection, file_name, file_size, file_extension, file_existing_new, file_model,login);
                 }
                 catch(HttpException e){ ViewData["message"] = e.Message;}
                
@@ -71,16 +73,19 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return File(file_path, "application/force-download", Path.GetFileName(file_path));
         }
 
-        public void dbConnection(string connection,string file_name,string file_size,string file_extension,string file_existing_new,FileModel file_model)
+        public void insert_upload_info(string connection,string file_name,string file_size,string file_extension,string file_existing_new,FileModel file_model,LoginModel login)
         {
             using (MySqlConnection sql_con = new MySqlConnection(connection))
             {
-                string sql_statement = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_upload_update)";
-                using (MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con))
+                string sql_statement_insert = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_upload_update,@username)";
+                
+                using (MySqlCommand sql_com = new MySqlCommand(sql_statement_insert,sql_con))
                 {
                     try
                     {
                         sql_con.Open();
+                        TempData.Keep("get_username");
+                        sql_com.Parameters.AddWithValue("@username", TempData["get_username"]);
                         sql_com.Parameters.AddWithValue("@file_id", file_model.generate_file_id());
                         sql_com.Parameters.AddWithValue("@file_name", file_name);
                         sql_com.Parameters.AddWithValue("@file_description", file_model.file_descripion);
@@ -98,7 +103,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 
         }
 
-        public ActionResult Uploads()
+        public ActionResult Uploads(Models.LoginModel login)
         {
             List<UploadModel> list = new List<UploadModel>();
             using (MySqlConnection sql_con = new MySqlConnection(connection))
@@ -107,8 +112,9 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 if (file_name != null)
                     ViewData["file_info"] = "Log for " + file_name;
                 else
-                    ViewData["file_info"] = "No file was uploaded"; 
-                
+                    ViewData["file_info"] = "No file was uploaded";
+
+              
              MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
              sql_com.Parameters.AddWithValue("@File_name", file_name);
              sql_con.Open();
@@ -116,6 +122,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 while (reader.Read())
                 {
                     var upload_data = new UploadModel();
+                    upload_data.upload_username = reader["username"].ToString();
                     upload_data.file_description = reader["file_description"].ToString();
                     upload_data.file_upload_dateTime = reader["file_upload_dateTime"].ToString();
                     upload_data.file_size = reader["file_size"].ToString();
