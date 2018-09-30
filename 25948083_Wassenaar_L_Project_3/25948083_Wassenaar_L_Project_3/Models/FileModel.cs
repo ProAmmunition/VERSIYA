@@ -8,6 +8,7 @@ namespace _25948083_Wassenaar_L_Project_3.Models
     public class FileModel
     {
         [Display(Name = "DESCRIPTION")]
+        [Required(ErrorMessage = "Please enter a discription")]
         public string file_descripion { get; set; }
 
         public string exsiting_new_file(string path)

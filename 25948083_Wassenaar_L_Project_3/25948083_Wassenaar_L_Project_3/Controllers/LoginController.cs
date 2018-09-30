@@ -12,15 +12,15 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
     public class LoginController : Controller
     {
-        public string connection = "datasource = den1.mysql4.gear.host; port=3306; Initial Catalog = 'versiyadb'; username='versiyadb';password='En5KD_989Z-9';";
+     
         public ActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Index(LoginModel login,UserModel user)
+        public ActionResult Index(LoginModel login,UserModel user, DbConnection db)
         {
-            MySqlConnection sql_con = new MySqlConnection(connection);
+            MySqlConnection sql_con = new MySqlConnection(db.connectionString());
             string sql_statement = "SELECT username,user_password FROM user WHERE username = @username AND user_password = @user_password;";
             sql_con.Open();
             MySqlCommand sql_com = new MySqlCommand(sql_statement, sql_con);

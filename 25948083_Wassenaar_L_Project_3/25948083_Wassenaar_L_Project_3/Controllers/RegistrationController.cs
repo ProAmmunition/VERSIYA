@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Web.Routing;
+using _25948083_Wassenaar_L_Project_3.Models;
 
 namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
     public class RegistrationController : Controller
     {
-        public string connection = "datasource = den1.mysql4.gear.host; port=3306; Initial Catalog = 'versiyadb'; username='versiyadb';password='En5KD_989Z-9';";
         public ActionResult Registration_page()
         {
             return View();
@@ -19,15 +19,12 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 
 
         [HttpPost]
-        public ActionResult Registration_page(Models.UserModel user_model)
+        public ActionResult Registration_page(UserModel user_model, DbConnection db)
         {
-
-            using (MySqlConnection sql_con = new MySqlConnection(connection))
-            {
-                string sql_statement = "INSERT INTO user VALUES(@username,@user_password,@user_email_address)";
-                using (MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con))
-                {
-                    try
+            MySqlConnection sql_con = new MySqlConnection(db.connectionString());
+            string sql_statement = "INSERT INTO user VALUES(@username,@user_password,@user_email_address)";
+            MySqlCommand sql_com = new MySqlCommand(sql_statement, sql_con);
+                try
                     {
                         sql_con.Open();
                         sql_com.Parameters.AddWithValue("@username", user_model.Username);
@@ -40,10 +37,6 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                     }
                     catch (MySqlException e){ViewData["Message"] = "Error, please make sure the password,username and Email entries does not already exist";}
                     return View(user_model);
-               }
-
-
-            }
         }
     }
 }

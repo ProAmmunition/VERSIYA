@@ -45,7 +45,12 @@
 
                     <th>
                         <div class="sup_headings">
-                            LINK:
+                            DOWNLOAD LINK:
+                        </div>
+                    </th>
+                    <th>
+                        <div class="sup_headings">
+                            VIEW HISTORY:
                         </div>
                     </th>
                 </tr>
@@ -64,6 +69,9 @@
 
                         <td>
                             @Html.ActionLink("Download", "Download", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("History", "Uploads", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
                         </td>
                     </tr>
                 }
