@@ -12,7 +12,7 @@
      <style type="text/css">
       @@keyframes flicker {from { opacity: 0; }to { opacity: 1;}}
      .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
-     .welcome_heading{color:white;font-family:Calibri;font-size:x-small;font-style:oblique}
+     .welcome_heading{color:dimgrey;font-family:Calibri;font-size:large}
      .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:left}
      .button_area{font-size:large;text-align:center;font-family:Impact}
      .button_area_2{font-size:large;text-align:left}
@@ -38,9 +38,8 @@
 <body style="background-color:black">
 @using (Html.BeginForm("Commit", "FilePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div class="welcome_heading">
-        <h2>Welcome @TempData["get_username"]</h2>
-    </div>
+    
+     <label class="welcome_heading">Welcome @TempData["get_username"]</label>
     <div class="heading">
         <h1>UPLOAD OR UPDATE AN EXISTING FILE</h1>
     </div>

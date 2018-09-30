@@ -28,7 +28,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         {
           string file_existing_new = "", file_extension = "", file_size = "", file_name;
 
-            if (file != null || TempData["get_username"] != null)
+            if (file != null)
             {
                 file_name = Path.GetFileName(file.FileName);
                 file_size = file_model.determine_file_size_in_mb(file.ContentLength);
@@ -36,7 +36,12 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
                 file_existing_new = file_model.exsiting_new_file(path);
                 file_message = file_model.exsiting_new_file_message(path);
+
+                if(TempData["get_username"] == null)
+                ViewData["Message"] = "User not signed in";
+                else
                 insert_upload_info(db.connectionString(), file_name, file_size, file_extension, file_existing_new, file_model, login);
+
                 if(file_model.file_descripion != null)
                 file.SaveAs(path);
             }
@@ -72,8 +77,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         public void insert_upload_info(string connection,string file_name,string file_size,string file_extension,string file_existing_new,FileModel file_model,LoginModel login)
         {
             MySqlConnection sql_con = new MySqlConnection(connection);
-            string sql_statement_insert = "INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_upload_update,@username)";
-            MySqlCommand sql_com = new MySqlCommand(sql_statement_insert, sql_con);
+            MySqlCommand sql_com = new MySqlCommand("INSERT INTO upload_file VALUES(@file_id,@file_name,@file_description,@file_upload_dateTime,@file_size,@file_extension,@file_upload_update,@username)", sql_con);
                 
                     try
                     {
@@ -101,11 +105,10 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         {
             List<UploadModel> list = new List<UploadModel>();
             MySqlConnection sql_con = new MySqlConnection(db.connectionString());
-            string sql_statement = "SELECT * FROM upload_file WHERE file_name = @File_name ORDER BY file_upload_dateTime;";
                 if (file_name != null)
                     ViewData["file_info"] = "Log for " + file_name;
            
-             MySqlCommand sql_com = new MySqlCommand(sql_statement,sql_con);
+             MySqlCommand sql_com = new MySqlCommand("SELECT * FROM upload_file WHERE file_name = @File_name ORDER BY file_upload_dateTime;", sql_con);
              sql_com.Parameters.AddWithValue("@File_name", file_name);
              sql_con.Open();
              MySqlDataReader reader = sql_com.ExecuteReader();

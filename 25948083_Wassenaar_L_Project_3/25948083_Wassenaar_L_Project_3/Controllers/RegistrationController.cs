@@ -22,8 +22,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         public ActionResult Registration_page(UserModel user_model, DbConnection db)
         {
             MySqlConnection sql_con = new MySqlConnection(db.connectionString());
-            string sql_statement = "INSERT INTO user VALUES(@username,@user_password,@user_email_address)";
-            MySqlCommand sql_com = new MySqlCommand(sql_statement, sql_con);
+            MySqlCommand sql_com = new MySqlCommand("INSERT INTO user VALUES(@username,@user_password,@user_email_address)", sql_con);
                 try
                     {
                         sql_con.Open();

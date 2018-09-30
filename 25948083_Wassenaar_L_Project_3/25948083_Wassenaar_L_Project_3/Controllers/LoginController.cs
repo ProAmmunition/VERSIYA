@@ -21,9 +21,8 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         public ActionResult Index(LoginModel login,UserModel user, DbConnection db)
         {
             MySqlConnection sql_con = new MySqlConnection(db.connectionString());
-            string sql_statement = "SELECT username,user_password FROM user WHERE username = @username AND user_password = @user_password;";
             sql_con.Open();
-            MySqlCommand sql_com = new MySqlCommand(sql_statement, sql_con);
+            MySqlCommand sql_com = new MySqlCommand("SELECT username,user_password FROM user WHERE username = @username AND user_password = @user_password;", sql_con);
             sql_com.Parameters.AddWithValue("@username", login.Username);
             sql_com.Parameters.AddWithValue("@user_password", user.hash(login.Password));
             MySqlDataReader dataRead = sql_com.ExecuteReader();
