@@ -15,11 +15,11 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
     public class FilePageController : Controller
     {
         public static string file_message;
+        public static bool db_insert_success = true ;
 
         [HttpGet]
         public ActionResult Commit()
         {
-            @TempData.Keep("get_username");
             return View();
         }
 
@@ -36,13 +36,13 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
                 file_existing_new = file_model.exsiting_new_file(path);
                 file_message = file_model.exsiting_new_file_message(path);
-
-                if(TempData["get_username"] == null)
-                ViewData["Message"] = "User not signed in";
+ 
+                if (Session["username"] == null)
+                    ViewData["Message"] = "User not signed in";
                 else
-                insert_upload_info(db.connectionString(), file_name, file_size, file_extension, file_existing_new, file_model, login);
-
-                if(file_model.file_descripion != null)
+   
+                    insert_upload_info(db.connectionString(), file_name, file_size, file_extension, file_existing_new, file_model, login);
+                if(file_model.file_descripion != null && db_insert_success == true)
                 file.SaveAs(path);
             }
             else
@@ -62,7 +62,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                string extension = file.Extension;
                string file_size = file_model.determine_file_size_in_mb(file.Length);
                items.Add(file.Name);
-               ViewData[Convert.ToString(file_count)] = "[Last Edit: " + last_edit + "] [Extension:" + extension + "] [File size:" + file_size + "mb]";
+               ViewData[Convert.ToString(file_count)] = "[Last Edit/Upload: " + last_edit + "] [Extension:" + extension + "] [File size:" + file_size + "mb]";
                file_count++;
             }
             return View(items);
@@ -82,9 +82,9 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                     try
                     {
                         sql_con.Open();
-                        TempData.Keep("get_username");
-                        sql_com.Parameters.AddWithValue("@username", TempData["get_username"]);
-                        sql_com.Parameters.AddWithValue("@file_id", file_model.generate_file_id());
+                        long file_id = sql_com.LastInsertedId;
+                        sql_com.Parameters.AddWithValue("@file_id", file_id);
+                        sql_com.Parameters.AddWithValue("@username", Session["username"]);
                         sql_com.Parameters.AddWithValue("@file_name", file_name);
                         sql_com.Parameters.AddWithValue("@file_description", file_model.file_descripion);
                         sql_com.Parameters.AddWithValue("@file_upload_dateTime", DateTime.Now);
@@ -95,7 +95,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
                         sql_con.Close();
                     }
-                    catch (MySqlException e){ ViewData["Message"] = "File upload error";}
+                    catch (MySqlException e){ ViewData["Message"] = e.Message; db_insert_success = false; }
                 
             
 

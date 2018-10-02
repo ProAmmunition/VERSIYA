@@ -38,8 +38,7 @@
 <body style="background-color:black">
 @using (Html.BeginForm("Commit", "FilePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    
-     <label class="welcome_heading">Welcome @TempData["get_username"]</label>
+     <label class="welcome_heading">Welcome @Session["username"]</label>
     <div class="heading">
         <h1>UPLOAD OR UPDATE AN EXISTING FILE</h1>
     </div>
@@ -55,15 +54,15 @@
             @Html.TextBox("File", "", new { type = "File", @class = "button_browse"})
             <h1></h1>
             @Html.LabelFor(model => model.file_descripion)
-            @Html.TextBoxFor(model => model.file_descripion, new { @class = "textbox_size" })
+            @Html.TextBoxFor(model => model.file_descripion, new { @class = "textbox_size", autocomplete = "off" })
             <h1></h1>
             @Html.ValidationMessageFor(model => model.file_descripion)
             <h1></h1>
-            <input type="submit" value="UPLOAD/UPDATE" class="button" />
+            <input type="submit" value="UPLOAD/UPDATE" class="button"/>
             <div class="view_data">
                 <h1>@Html.ViewData["Message"]</h1>
             </div>
-            
+           
         </div>
         <h1></h1>
     </div>

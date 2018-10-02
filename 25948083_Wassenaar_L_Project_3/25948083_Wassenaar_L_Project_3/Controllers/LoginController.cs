@@ -29,7 +29,6 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             if(dataRead.Read())
             {
                 Session["username"] = login.Username.ToString();
-                TempData["get_username"] = login.Username.ToString();
                 Session["user_password"] = user.hash(login.Password.ToString());
                 return RedirectToAction("Commit", "FilePage", new { area = "" });
             }
