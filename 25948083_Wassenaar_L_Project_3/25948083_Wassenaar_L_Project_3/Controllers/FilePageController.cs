@@ -21,6 +21,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         public ActionResult Commit()
         {
             return View();
+
         }
 
         [HttpPost]
@@ -40,8 +41,8 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 if (Session["username"] == null)
                     ViewData["Message"] = "User not signed in";
                 else
-   
-                    insert_upload_info(db.connectionString(), file_name, file_size, file_extension, file_existing_new, file_model, login);
+                 insert_upload_info(db.connectionString(), file_name, file_size, file_extension, file_existing_new, file_model, login);
+
                 if(file_model.file_descripion != null && db_insert_success == true)
                 file.SaveAs(path);
             }

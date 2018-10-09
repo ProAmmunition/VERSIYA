@@ -10,9 +10,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>Commit</title>
      <style type="text/css">
-      @@keyframes flicker {from { opacity: 0; }to { opacity: 1;}}
      .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
-     .welcome_heading{color:dimgrey;font-family:Calibri;font-size:large}
+     .welcome_heading{color:white;font-family:Calibri;font-size:large}
      .label {color:lawngreen; font-size:medium;font-family:Calibri; text-align:left}
      .button_area{font-size:large;text-align:center;font-family:Impact}
      .button_area_2{font-size:large;text-align:left}
@@ -27,8 +26,8 @@
      .link_2{font-family:Calibri;text-align:center;font-size:large}
      .textbox_size{width:500px;border-radius:8px}
      .panel_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 700px; height: 210px;background-color:black; color: black;text-align:center;border-radius: 12px;border-color:lawngreen}
-     .info { position: relative; display: inline-block;color:lawngreen;background-color:black;border-color:lawngreen;font-family:Arial;font-weight:bold;font-size:x-large;animation-name:flicker; animation:11s linear infinite flicker}
-     .info .info_text {visibility: hidden;width: 350px;background-color: lawngreen;color: black;text-align:center;font-size:small;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1;border-color:lawngreen}
+     .info { position: relative; display: inline-block;color:lawngreen;background-color:black;border-color:lawngreen;font-family:Arial;font-weight:bold;font-size:medium;animation-name:flicker}
+     .info .info_text {visibility: hidden;width: 350px;background-color: white;color: black;text-align:center;font-size:small;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1}
      .info:hover .info_text {visibility: visible;}
       input[type='file']::-webkit-file-upload-button{width: 120px; color: black; background-color:lawngreen; font-family:Calibri;font-weight:bold; font-size:large;border-radius: 12px;border-color:lawngreen}
      </style>
@@ -44,7 +43,7 @@
     </div>
 
     <div class="info">
-        Info?
+        Hover over me for info?
         <span class="info_text">The web application will automatically detect if an uploaded file exists. Please don't change the file name when updating a particular file</span>
     </div>
     <h1></h1>
@@ -62,7 +61,7 @@
             <div class="view_data">
                 <h1>@Html.ViewData["Message"]</h1>
             </div>
-           
+
         </div>
         <h1></h1>
     </div>

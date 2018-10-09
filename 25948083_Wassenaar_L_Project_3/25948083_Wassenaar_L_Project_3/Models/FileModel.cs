@@ -18,6 +18,7 @@ namespace _25948083_Wassenaar_L_Project_3.Models
         {
             if (System.IO.File.Exists(path))
                 file = "update";
+          
             else
                 file = "initial upload";
  
