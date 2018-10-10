@@ -37,7 +37,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
                 file_existing_new = file_model.exsiting_new_file(path);
                 file_message = file_model.exsiting_new_file_message(path);
- 
+          
                 if (Session["username"] == null)
                     ViewData["Message"] = "User not signed in";
                 else
@@ -96,7 +96,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
                         sql_con.Close();
                     }
-                    catch (MySqlException e){ ViewData["Message"] = e.Message; db_insert_success = false; }
+                    catch (MySqlException e){ ViewData["Message"] = "File upload error"; db_insert_success = false; }
                 
             
 

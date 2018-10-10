@@ -23,11 +23,10 @@
      .link{font-family:Calibri;text-align:left;font-size:medium}
      .view_data{color:white;font-size:6px;font-family:Calibri}
      .browse{color:white;text-align:center;color:lawngreen;font-family:Calibri;font-size:medium;width}
-     .link_2{font-family:Calibri;text-align:center;font-size:large}
      .textbox_size{width:500px;border-radius:8px}
      .panel_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 700px; height: 210px;background-color:black; color: black;text-align:center;border-radius: 12px;border-color:lawngreen}
      .info { position: relative; display: inline-block;color:lawngreen;background-color:black;border-color:lawngreen;font-family:Arial;font-weight:bold;font-size:medium;animation-name:flicker}
-     .info .info_text {visibility: hidden;width: 350px;background-color: white;color: black;text-align:center;font-size:small;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1}
+     .info .info_text {visibility: hidden;width: 350px;background-color: lawngreen;color: black;text-align:center;font-size:small;border-radius: 6px;padding: 5px 0;position: absolute;z-index: 1}
      .info:hover .info_text {visibility: visible;}
       input[type='file']::-webkit-file-upload-button{width: 120px; color: black; background-color:lawngreen; font-family:Calibri;font-weight:bold; font-size:large;border-radius: 12px;border-color:lawngreen}
      </style>
@@ -37,6 +36,7 @@
 <body style="background-color:black">
 @using (Html.BeginForm("Commit", "FilePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+
      <label class="welcome_heading">Welcome @Session["username"]</label>
     <div class="heading">
         <h1>UPLOAD OR UPDATE AN EXISTING FILE</h1>
@@ -47,7 +47,10 @@
         <span class="info_text">The web application will automatically detect if an uploaded file exists. Please don't change the file name when updating a particular file</span>
     </div>
     <h1></h1>
+    <p>--------</p>
+    <p>--------</p>
     <div class="panel_area">
+        
         <div class="browse">
             <h1></h1>
             @Html.TextBox("File", "", new { type = "File", @class = "button_browse"})
@@ -58,17 +61,13 @@
             @Html.ValidationMessageFor(model => model.file_descripion)
             <h1></h1>
             <input type="submit" value="UPLOAD/UPDATE" class="button"/>
+            <input type="button" class="button" value="EXISTING FILES" onclick="location.href='@Url.Action("downloads","FilePage")'">
             <div class="view_data">
                 <h1>@Html.ViewData["Message"]</h1>
             </div>
 
         </div>
         <h1></h1>
-    </div>
-
-    <div class="link_2">
-        <p></p>
-        <input type="button" class="button" value="UPLOADED FILES" onclick="location.href='@Url.Action("downloads","FilePage")'">
     </div>
 
     <div class="link">
