@@ -16,8 +16,12 @@
      .button_area{font-size:large;text-align:center;font-family:Impact}
      .button_area_2{font-size:large;text-align:left}
      .button {width: 185px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
+     .button_activity {width: 185px; color: white; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:white}
+     .welcome_pos{text-align:right}
+     .activity_pos{text-align:center;font-size:small}
      .button_browse {width: 350px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
      .button:hover{transform:scale(1.1)}
+     .button_activity:hover{transform:scale(1.1)}
      .button_back{color:white; background-color:black; width:130px; text-align:center;font-size:small;border-radius: 12px;border-color:white}
      .button_back:hover{transform:scale(1.1)}
      .link{font-family:Calibri;text-align:left;font-size:medium}
@@ -36,19 +40,24 @@
 <body style="background-color:black">
 @using (Html.BeginForm("Commit", "FilePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-
-     <label class="welcome_heading">Welcome @Session["username"]</label>
-    <div class="heading">
-        <h1>UPLOAD OR UPDATE AN EXISTING FILE</h1>
+    <div class="welcome_pos">
+        <label class="welcome_heading">Welcome @Session["username"]</label>
     </div>
+
+        <div class="heading">
+            <h1>UPLOAD OR UPDATE AN EXISTING FILE</h1>
+        </div>
 
     <div class="info">
         Hover over me for info?
         <span class="info_text">The web application will automatically detect if an uploaded file exists. Please don't change the file name when updating a particular file</span>
     </div>
     <h1></h1>
-    <p>--------</p>
-    <p>--------</p>
+    <div class="activity_pos">
+        <h6>-----</h6>
+        <input type="button" class="button_activity" value="MY ACTIVITY" onclick="location.href='@Url.Action("login_history","FilePage")'">
+        <h1></h1>
+    </div>
     <div class="panel_area">
         
         <div class="browse">
@@ -67,12 +76,11 @@
             </div>
 
         </div>
-        <h1></h1>
+ 
     </div>
-
     <div class="link">
-        <h1>-----</h1>
-        <h1>-----</h1>
+        <h3>-----</h3>
+        <h3>-----</h3>
         <input type="button" class="button_back" value="LOGOUT" onclick="location.href='@Url.Action("Index","Login")'">
  </div>
 }

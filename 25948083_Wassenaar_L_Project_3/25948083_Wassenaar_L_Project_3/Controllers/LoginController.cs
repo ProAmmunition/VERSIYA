@@ -30,6 +30,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             {
                 Session["username"] = login.Username.ToString();
                 Session["user_password"] = user.hash(login.Password.ToString());
+                insert_login(db);
                 return RedirectToAction("Commit", "FilePage", new { area = "" });
             }
             else
@@ -37,5 +38,26 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             sql_con.Close();
             return View();
         }
+
+        public void insert_login(DbConnection db)
+        {
+            using (MySqlConnection sql_con = new MySqlConnection(db.connectionString())) // used "using" to prevent two queries using the same connection clashing
+            {
+                using (MySqlCommand sql_com = new MySqlCommand("INSERT INTO login_history VALUES(@login_id,@username,@login_date)", sql_con))
+                {
+                    try
+                    {
+                        sql_con.Open();
+                        long login_id = sql_com.LastInsertedId;
+                        sql_com.Parameters.AddWithValue("@login_id", login_id);
+                        sql_com.Parameters.AddWithValue("@username", Session["username"]);
+                        sql_com.Parameters.AddWithValue("@login_date", DateTime.Now);
+                        sql_com.ExecuteNonQuery();
+
+                    }
+                    catch (MySqlException e) { ViewData["message"] = "Error inserting data in log login-history"; }
+                }
+            }
+        }      
     }
 }

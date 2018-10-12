@@ -38,11 +38,11 @@ namespace _25948083_Wassenaar_L_Project_3.Models
         }
 
   
-        public string determine_file_size_in_mb(double file_size)
+        public string determine_file_size_in_kb(double file_size)
         {
-            double to_mb = (file_size / 1024) / 1024;
-            string mb_to_decimal = string.Format("{0:N2}", to_mb);
-            return mb_to_decimal;
+            double to_kb = (file_size / 1024);
+            string kb_to_decimal = string.Format("{0:N0}", to_kb);
+            return kb_to_decimal;
         }
 
     }

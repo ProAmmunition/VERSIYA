@@ -135,6 +135,7 @@
     <Compile Include="Models\DbConnection.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\login_history_model.cs" />
     <Compile Include="Models\UploadModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,6 +150,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\FilePage\Downloads.cshtml" />
     <Content Include="Views\FilePage\Uploads.cshtml" />
+    <Content Include="Views\FilePage\login_history.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Message\" />
     <Folder Include="Views\Register\" />
   </ItemGroup>
   <PropertyGroup>

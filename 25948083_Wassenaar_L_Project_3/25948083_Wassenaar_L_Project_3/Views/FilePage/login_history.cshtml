@@ -1,0 +1,55 @@
+﻿@model IEnumerable<_25948083_Wassenaar_L_Project_3.Models.login_history_model>
+
+ <style type="text/css">
+     .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
+     .supheading {color:lawngreen; text-align:center; font-size:small;font-family:Calibri}
+     .history_heading {color:lawngreen; font-size:x-small;font-family:Calibri;text-align:center;}
+     .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: x-large; width: 400px; height: 150px; overflow: scroll;background:black; color: lawngreen;display:inline-table;border-color:lawngreen;text-align:center}
+     .body_of_container{text-align:center}
+     .table_heading{text-align:center;color:white}
+     .button_back{color:white; background-color:black; width:130px; text-align:center;font-size:small;border-radius: 12px;border-color:white}
+     .button_back:hover{transform:scale(1.1)}
+     </style>
+<body style="background-color:black">
+    <div class="heading">
+        <h1>LOGIN ACTIVITY</h1>
+    </div>
+    <input type="button" class="button_back" value="GO BACK" onclick="location.href='@Url.Action("Commit","FilePage")'">
+    <div class="supheading">
+        <h1>@Html.ViewData["username"]</h1>
+    </div>
+    <div class="body_of_container">
+        <div class="log_area">
+            <table cellspacing="20" style="font-size:large; text-align:center; color:white">
+                <tr style="color:white">
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.login_id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.login_date)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.login_id)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.login_date)
+                        </td>
+                        
+                    </tr>
+                }
+
+            </table>
+            
+    </div>
+  </div>
+       
+
+</body>

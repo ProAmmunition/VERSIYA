@@ -32,7 +32,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             if (file != null)
             {
                 file_name = Path.GetFileName(file.FileName);
-                file_size = file_model.determine_file_size_in_mb(file.ContentLength);
+                file_size = file_model.determine_file_size_in_kb(file.ContentLength);
                 file_extension = Path.GetExtension(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
                 file_existing_new = file_model.exsiting_new_file(path);
@@ -61,9 +61,9 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             {
                DateTime last_edit = file.LastWriteTime;
                string extension = file.Extension;
-               string file_size = file_model.determine_file_size_in_mb(file.Length);
+               string file_size = file_model.determine_file_size_in_kb(file.Length);
                items.Add(file.Name);
-               ViewData[Convert.ToString(file_count)] = "[Last Edit/Upload: " + last_edit + "] [Extension:" + extension + "] [File size:" + file_size + "mb]";
+               ViewData[Convert.ToString(file_count)] = "[Last Edit/Upload: " + last_edit + "] [Extension:" + extension + "] [File size:" + file_size + "KB]";
                file_count++;
             }
             return View(items);
@@ -89,11 +89,11 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                         sql_com.Parameters.AddWithValue("@file_name", file_name);
                         sql_com.Parameters.AddWithValue("@file_description", file_model.file_descripion);
                         sql_com.Parameters.AddWithValue("@file_upload_dateTime", DateTime.Now);
-                        sql_com.Parameters.AddWithValue("@file_size", file_size+"mb");
+                        sql_com.Parameters.AddWithValue("@file_size", file_size+"KB");
                         sql_com.Parameters.AddWithValue("@file_extension", file_extension);
                         sql_com.Parameters.AddWithValue("@file_upload_update", file_existing_new);
                         sql_com.ExecuteNonQuery();
-                        ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "MB] [File Extension: " + file_extension + "]";
+                        ViewData["Message"] = file_message + "," + file_name + " [DATE: " + DateTime.Now + "]  [File size: " + file_size + "KB] [File Extension: " + file_extension + "]";
                         sql_con.Close();
                     }
                     catch (MySqlException e){ ViewData["Message"] = "File upload error"; db_insert_success = false; }
@@ -125,6 +125,30 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                     
                 }
                     return View(list);
+        }
+
+        public ActionResult login_history(DbConnection db)
+        {
+            if (Session["username"] == null)
+                ViewData["username"] = "No user logged in";
+            else
+                ViewData["username"] = "Login activity for " + Session["username"];
+
+            List<login_history_model> list = new List<login_history_model>();
+            MySqlConnection sql_con = new MySqlConnection(db.connectionString());
+            MySqlCommand sql_com = new MySqlCommand("SELECT login_id,login_date FROM login_history WHERE username = @username ORDER BY login_date;", sql_con);
+            sql_com.Parameters.AddWithValue("@username", Session["username"]);
+            sql_con.Open();
+            MySqlDataReader reader = sql_com.ExecuteReader();
+            while (reader.Read())
+            {
+                var login_hist = new login_history_model();
+                login_hist.login_id = reader["login_id"].ToString();
+                login_hist.login_date= reader["login_date"].ToString();
+                list.Add(login_hist);
+            }
+            return View(list);
+
         }
 
     }
