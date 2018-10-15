@@ -50,6 +50,11 @@
                             VIEW HISTORY:
                         </div>
                     </th>
+                    <th>
+                        <div class="sup_headings">
+                            DELETE FILE:
+                        </div>
+                    </th>
                 </tr>
 
                 @for (var increment = 0; increment <= Model.Count - 1; increment++)
@@ -61,7 +66,8 @@
 
                                 @Model[increment].ToString()
                                 @ViewData[Convert.ToString(increment)]
-                            </div>
+                                <p1>@ViewData["message"]</p1>
+                             </div>
                         </td>
 
                         <td>
@@ -69,6 +75,9 @@
                         </td>
                         <td>
                             @Html.ActionLink("History", "Uploads", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "Delete", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
                         </td>
                     </tr>
                 }
