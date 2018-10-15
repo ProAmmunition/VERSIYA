@@ -129,7 +129,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 
         public ActionResult Delete(string file_name)
         {
-            if (Session["username"] == null)
+            if (Session["username"] != null)
             {
                 var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
                 System.IO.File.Delete(path);
