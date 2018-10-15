@@ -129,18 +129,12 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 
         public ActionResult Delete(string file_name)
         {
-            if (Session["username"] != null)
-            {
-                var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
-                System.IO.File.Delete(path);
-                return RedirectToAction("Downloads", "FilePage", new { area = "" });
-            }
-            else
-            {
-                ViewData["message"] = "User not signed in";
-                return RedirectToAction("Downloads", "FilePage", new { area = "" });
-            }
-        }
+
+            var path = Path.Combine(Server.MapPath("~/Uploads"), file_name);
+            System.IO.File.Delete(path);
+            return RedirectToAction("Downloads", "FilePage", new { area = "" });
+        } 
+          
 
         public ActionResult login_history(DbConnection db)
         {
