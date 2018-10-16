@@ -126,6 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FilePagePrivateController.cs" />
+    <Compile Include="Controllers\FileUploadTypeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\FilePageController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
@@ -151,6 +153,11 @@
     <Content Include="Views\FilePage\Downloads.cshtml" />
     <Content Include="Views\FilePage\Uploads.cshtml" />
     <Content Include="Views\FilePage\login_history.cshtml" />
+    <Content Include="Views\FileUploadType\Public_Private.cshtml" />
+    <Content Include="Views\FilePagePrivate\CommitP.cshtml" />
+    <Content Include="Views\FilePagePrivate\DownloadsP.cshtml" />
+    <Content Include="Views\FilePagePrivate\login_historyP.cshtml" />
+    <Content Include="Views\FilePagePrivate\UploadsP.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

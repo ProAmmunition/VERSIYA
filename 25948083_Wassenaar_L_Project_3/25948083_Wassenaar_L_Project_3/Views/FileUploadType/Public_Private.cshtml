@@ -1,0 +1,47 @@
+﻿
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Commit</title>
+     <style type="text/css">
+     .heading {color:black; background:lawngreen; text-align:center; font-size:x-large;font-family:Impact}
+     .button {width: 185px; color: lawngreen; background-color:black; font-family:arial; font-size:large;border-radius: 12px;border-color:lawngreen}
+     .button_back {width: 185px; color: white; background-color:black; font-family:arial; font-size:small;border-radius: 12px;border-color:white}
+     .button_choice_area{text-align:center}
+     .button:hover{transform:scale(1.1)}
+     .button_back:hover{transform:scale(1.1)}
+     .message{color:lawngreen; font-family:calibri;font-size:x-large;text-align:center}
+     .link{font-family:Calibri;text-align:left;font-size:medium}
+     </style>
+
+</head>
+
+<body style="background-color:black">
+
+        <div class="heading">
+            <h1>VERSIYA</h1>
+        </div>
+    <h1>-------</h1>
+    <h1>-------</h1>
+    <h1>-------</h1>
+    <div class="message">
+       
+        <p>Do you want to upload/update public or private files?</p>
+    </div>
+    <div class="button_choice_area">
+        <input type="button" class="button" value="PUBLIC" onclick="location.href='@Url.Action("Commit","FilePage")'">
+        <input type="button" class="button" value="PRIVATE" onclick="location.href='@Url.Action("CommitP","FilePagePrivate")'">
+    </div>
+    <h1>-------</h1>
+    <h1>-------</h1>
+    <h1>-------</h1>
+    <h1>-------</h1>
+    <div class="link">
+        <input type="button" class="button_back" value="LOGOUT" onclick="location.href='@Url.Action("Index","Login")'">
+ </div>
+
+
+</body>
+</html>
+
+

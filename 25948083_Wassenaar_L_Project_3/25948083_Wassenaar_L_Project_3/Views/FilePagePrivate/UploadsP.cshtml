@@ -1,0 +1,78 @@
+﻿@model IEnumerable<_25948083_Wassenaar_L_Project_3.Models.UploadModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Uploads</title>
+      <style type="text/css">
+     .heading {color:black; background:lawngreen; text-align:center; font-size:large;font-family:Impact}
+     .supheading {color:lawngreen; text-align:center; font-size:small;font-family:Calibri}
+     .history_heading {color:lawngreen; font-size:x-small;font-family:Calibri;text-align:center;}
+     .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 800px; height: 300px; overflow: scroll;background:black; color: lawngreen;display:inline-table;border-color:lawngreen;text-align:center}
+     .body_of_container{text-align:center}
+     .table_heading{text-align:center;color:white}
+     .button_back{color:white; background-color:black; width:150px; text-align:center;font-size:small;border-radius: 12px;border-color:white}
+     .button_back:hover{transform:scale(1.1)}
+     </style>
+</head>
+<body style="background-color:black">
+    <div class="heading">
+        <h1>HISTORY LOG</h1>
+    </div>
+    <div class="supheading">
+        <h1>@Html.ViewData["file_info"]</h1>
+    </div>
+    <div class="body_of_container">
+        <div class="log_area">
+            <table cellspacing="10">
+                
+                <tr style="color:white">
+             
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_upload_dateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_size)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.file_upload_update)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                   
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_upload_dateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_size)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.file_upload_update)
+                        </td>
+
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+    <h1>-----</h1>
+    <h1>-----</h1>
+    <input type="button" class="button_back" value="GO BACK" onclick="location.href='@Url.Action("DownloadsP","FilePagePrivate")'">
+</body>
+</html>

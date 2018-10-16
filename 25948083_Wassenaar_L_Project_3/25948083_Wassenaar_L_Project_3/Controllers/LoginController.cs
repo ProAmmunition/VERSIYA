@@ -31,7 +31,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 Session["username"] = login.Username.ToString();
                 Session["user_password"] = user.hash(login.Password.ToString());
                 insert_login(db);
-                return RedirectToAction("Commit", "FilePage", new { area = "" });
+                return RedirectToAction("Public_Private", "FileUploadType", new { area = "" });
             }
             else
                 ViewData["message"] = "Invalid login details";

@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+  
+     <style type="text/css">
+     
+     .heading {color:black; background:lawngreen; text-align:center; font-size:x-large;font-family:Impact}
+     .sup_heading {color:lawngreen; background:black; font-size:medium;font-family:Calibri;text-align:center}
+     .content  {color:white; background:black; font-size:medium;font-family:Calibri}
+     .back_link{text-align:left;font-size:large}
+     .upload_details{font-family:Calibri;color:white}
+     .log_body{text-align:center}
+     .log_area{margin: 0 auto; border:8px solid lawngreen;padding:2%; padding: 5px; font-size: medium; width: 900px; height: 300px; overflow: scroll;background:black; color: lawngreen;display:inline-table;border-color:lawngreen;border-radius:8px;text-align:left}
+     .button_back{color:white; background-color:black; width:130px; text-align:center;font-size:small;border-radius: 12px;border-color:white}
+     .button_back:hover{transform:scale(1.1)}
+     </style>
+</head>
+<body style="background-color:black">
+    @model List<string>
+  
+    <div class="heading">
+        <h2>VIEW AND EDIT EXISTING FILES</h2>
+    </div>
+
+    <div class="sup_heading">
+        <h2>EXISTING FILES LOG</h2>
+        <h6>@ViewData["error"]</h6>
+    </div>
+    <div class="log_body">
+        <div class="log_area">
+            <table>
+                <tr>
+                    <th>
+                        <div class="sup_headings">
+                            FILE INFO:
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class="sup_headings">
+                            DOWNLOAD LINK:
+                        </div>
+                    </th>
+                    <th>
+                        <div class="sup_headings">
+                            VIEW HISTORY:
+                        </div>
+                    </th>
+                    <th>
+                        <div class="sup_headings">
+                            DELETE FILE:
+                        </div>
+                    </th>
+                </tr>
+
+                @for (var increment = 0; increment <= Model.Count - 1; increment++)
+            {
+                    <tr>
+
+                        <td>
+                            <div class="content">
+
+                                @Model[increment].ToString()
+                                @ViewData[Convert.ToString(increment)]
+                             </div>
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Download", "DownloadP", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("History", "UploadsP", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Delete", "DeleteP", new { file_name = @Model[increment].ToString() }, new { @Style = "color:lawngreen" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <h1>----</h1>
+    <div class="back_link">
+        <h1></h1>
+        <input type="button" class="button_back" value="GO BACK" onclick="location.href='@Url.Action("CommitP","FilePagePrivate")'">
+    </div>
+</body>
+</html>
+

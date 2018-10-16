@@ -38,14 +38,14 @@
 </head>
 
 <body style="background-color:black">
-@using (Html.BeginForm("Commit", "FilePage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CommitP", "FilePagePrivate", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="welcome_pos">
         <label class="welcome_heading">Welcome @Session["username"]</label>
     </div>
 
         <div class="heading">
-            <h1>UPLOAD OR UPDATE AN EXISTING FILE (PUBLIC)</h1>
+            <h1>UPLOAD OR UPDATE AN EXISTING FILE (PRIVATE)</h1>
         </div>
 
     <div class="info">
@@ -55,7 +55,7 @@
     <h1></h1>
     <div class="activity_pos">
         <h6>-----</h6>
-        <input type="button" class="button_activity" value="MY ACTIVITY" onclick="location.href='@Url.Action("login_history","FilePage")'">
+        <input type="button" class="button_activity" value="MY ACTIVITY" onclick="location.href='@Url.Action("login_historyP","FilePagePrivate")'">
         <h1></h1>
     </div>
     <div class="panel_area">
@@ -70,7 +70,7 @@
             @Html.ValidationMessageFor(model => model.file_descripion)
             <h1></h1>
             <input type="submit" value="UPLOAD/UPDATE" class="button"/>
-            <input type="button" class="button" value="EXISTING FILES" onclick="location.href='@Url.Action("downloads","FilePage")'">
+            <input type="button" class="button" value="EXISTING FILES" onclick="location.href='@Url.Action("DownloadsP","FilePagePrivate")'">
             <div class="view_data">
                 <h1>@Html.ViewData["Message"]</h1>
             </div>
