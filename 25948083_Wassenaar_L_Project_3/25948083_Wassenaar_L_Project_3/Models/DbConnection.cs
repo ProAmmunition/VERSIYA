@@ -5,6 +5,7 @@ using System.Web;
 
 namespace _25948083_Wassenaar_L_Project_3.Models
 {
+    // Connection string of the database
     public class DbConnection
     {
         public string connectionString()

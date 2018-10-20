@@ -8,6 +8,7 @@ using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
 
+// used for the user login
 namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
     public class LoginController : Controller
@@ -17,6 +18,8 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         {
             return View();
         }
+
+        // checks if user input is equal to a registered user
         [HttpPost]
         public ActionResult Index(LoginModel login,UserModel user, DbConnection db)
         {
@@ -39,6 +42,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return View();
         }
 
+        // records user activity with each user loggin
         public void insert_login(DbConnection db)
         {
             using (MySqlConnection sql_con = new MySqlConnection(db.connectionString())) // used "using" to prevent two queries using the same connection clashing

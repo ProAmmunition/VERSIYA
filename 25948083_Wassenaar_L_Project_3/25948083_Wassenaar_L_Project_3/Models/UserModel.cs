@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 
 namespace _25948083_Wassenaar_L_Project_3.Models
 {
+    // used for user registration, with a number of data annotations including an confirm password function with using compare
     public class UserModel
     {
         [Display(Name = "USERNAME")]
@@ -34,7 +35,7 @@ namespace _25948083_Wassenaar_L_Project_3.Models
         [System.Web.Mvc.Compare("Password", ErrorMessage = "Password does not match")]
         public string ConfirmPassword { get; set; }
 
-        //encrypt password
+        //used for encrypting user password using md5
         public string hash(string password)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

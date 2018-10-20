@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _25948083_Wassenaar_L_Project_3.Models
 {
+    // used to view existing file history with display annotations
     public class UploadModel
     {
         [Display(Name = "FILE NAME")]

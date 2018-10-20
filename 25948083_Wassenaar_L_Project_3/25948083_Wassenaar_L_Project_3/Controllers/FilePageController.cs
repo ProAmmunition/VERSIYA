@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Web.Routing;
 using _25948083_Wassenaar_L_Project_3.Models;
 
-
+// used for public files
 namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
     public class FilePageController : Controller
@@ -23,7 +23,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return View();
 
         }
-
+        // Upload a file, an existing file will be automatically detected. File results is recorded in the database
         [HttpPost]
         public ActionResult Commit(HttpPostedFileBase file, FileModel file_model, LoginModel login, DbConnection db)
         {
@@ -50,7 +50,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 ViewData["Message"] = "Choose a file first";
                 return View();
         }
-
+        // List files with their imformation, to be ready for download
         public ActionResult Downloads(FileModel file_model)
         {
             var dir = new DirectoryInfo(Server.MapPath("~/Uploads/"));
@@ -68,13 +68,13 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             }
             return View(items);
         }
-
+        // Forces the download of a particular file
         public FileResult Download(string file_name)
         {
             var file_path = "~/Uploads/" + file_name;
             return File(file_path, "application/force-download", Path.GetFileName(file_path));
         }
-
+        // insert method of files with their information. Method is called in the commit actionresult
         public void insert_upload_info(string connection,string file_name,string file_size,string file_extension,string file_existing_new,FileModel file_model,LoginModel login)
         {
             MySqlConnection sql_con = new MySqlConnection(connection);
@@ -101,7 +101,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             
 
         }
-
+        // view the history of changes of an existing file
         public ActionResult Uploads(string file_name, DbConnection db)
         {
             List<UploadModel> list = new List<UploadModel>();
@@ -126,7 +126,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 }
                     return View(list);
         }
-
+        // Delete an existing file
         public ActionResult Delete(string file_name)
         {
 
@@ -135,7 +135,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return RedirectToAction("Downloads", "FilePage", new { area = "" });
         } 
           
-
+        // used to display the activity of a specific user
         public ActionResult login_history(DbConnection db)
         {
             if (Session["username"] == null)

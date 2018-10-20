@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using System.Web.Routing;
 using _25948083_Wassenaar_L_Project_3.Models;
 
+//used for user registration
 namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
     public class RegistrationController : Controller
@@ -17,7 +18,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return View();
         }
 
-
+        // add a user, a unique index is used in the database to detect if the user infromation already exists
         [HttpPost]
         public ActionResult Registration_page(UserModel user_model, DbConnection db)
         {

@@ -9,7 +9,7 @@ using MySql.Data.MySqlClient;
 using System.Web.Routing;
 using _25948083_Wassenaar_L_Project_3.Models;
 
-
+// used for private files
 namespace _25948083_Wassenaar_L_Project_3.Controllers
 {
     public class FilePagePrivateController : Controller
@@ -17,6 +17,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
         public static string file_message;
         public static bool db_insert_success = true;
 
+        //Checks if an repository exists for the specific user that logged in. Uses session to create repository
         [HttpGet]
         public ActionResult CommitP()
         {
@@ -27,13 +28,11 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             }
             return View();
         }
-
+        // Upload a file, an existing file will be automatically detected. File results is recorded in the database
         [HttpPost]
         public ActionResult CommitP(HttpPostedFileBase file, FileModel file_model, LoginModel login, DbConnection db)
         {
             string file_existing_new = "", file_extension = "", file_size = "", file_name;
-            var create_path = Server.MapPath("~/" + Session["username"]);
-            Directory.CreateDirectory(create_path);
 
             if (file != null)
             {
@@ -56,7 +55,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
                 ViewData["Message"] = "Choose a file first";
             return View();
         }
-
+        // List files with their imformation, to be ready for download
         public ActionResult DownloadsP(FileModel file_model,DbConnection db)
         {
             try
@@ -80,13 +79,13 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 
 
         }
-
+        // Forces the download of a particular file
         public FileResult DownloadP(string file_name)
         {
             var file_path = "~/Private_Uploads/" + Session["username"] + "/" + file_name;
             return File(file_path, "application/force-download", Path.GetFileName(file_path));
         }
-
+        // insert method of files with their information. Method is called in the pcommit actionresult
         public void insert_upload_info(string connection, string file_name, string file_size, string file_extension, string file_existing_new, FileModel file_model, LoginModel login)
         {
             MySqlConnection sql_con = new MySqlConnection(connection);
@@ -113,7 +112,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
 
 
         }
-
+        // view the history of changes of an existing file
         public ActionResult UploadsP(string file_name, DbConnection db)
         {
             List<UploadModel> list = new List<UploadModel>();
@@ -138,7 +137,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             }
             return View(list);
         }
-
+        // Delete an existing file
         public ActionResult DeleteP(string file_name)
         {
 
@@ -147,7 +146,7 @@ namespace _25948083_Wassenaar_L_Project_3.Controllers
             return RedirectToAction("DownloadsP", "FilePagePrivate", new { area = "" });
         }
 
-
+        // used to display the activity of a specific user
         public ActionResult login_historyP(DbConnection db)
         {
             if (Session["username"] == null)

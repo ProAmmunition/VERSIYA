@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _25948083_Wassenaar_L_Project_3.Models
 {
+    //used for user-loggin with required, stringlength, display and datatype annotations
     public class LoginModel
     {
         [Required(ErrorMessage ="Please enter username")]
